@@ -1,1 +1,16 @@
-(
+/* =========================================================
+   base.css
+   共通設定
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#111;
+    color:#fff;
+    font-family:sans-serif;
+}
