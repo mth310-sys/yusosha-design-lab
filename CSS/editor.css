@@ -1,1 +1,37 @@
-(
+/* =========================================================
+   editor.css
+   編集エリア
+========================================================= */
+
+#editor{
+    min-height:220px;
+    background:#222;
+    border:2px solid #555;
+    border-radius:12px;
+    padding:16px;
+}
+
+#editor h3{
+    margin-bottom:18px;
+    font-size:18px;
+}
+
+#editor label{
+    display:block;
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+#editor input[type="range"]{
+    display:block;
+    width:100%;
+    margin-top:10px;
+}
+
+#topValue{
+    display:block;
+    margin-bottom:22px;
+    color:#ffd400;
+    font-size:16px;
+    font-weight:bold;
+}
