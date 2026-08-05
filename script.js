@@ -26,3 +26,15 @@ tabs.forEach(tab => {
     });
 
 });
+
+const topFrame=document.getElementById("top-frame");
+const topHeight=document.getElementById("topHeight");
+const topValue=document.getElementById("topValue");
+
+topHeight.addEventListener("input",()=>{
+
+    topFrame.style.height=topHeight.value+"px";
+
+    topValue.textContent=topHeight.value+"px";
+
+});
