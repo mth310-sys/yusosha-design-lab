@@ -116,3 +116,17 @@ header p{
     top:50%;
     height:1px;
 }
+
+#top-frame{
+    position:absolute;
+    left:0;
+    top:0;
+
+    width:100%;
+    height:80px;
+
+    border:2px solid #ffd400;
+    background:rgba(255,212,0,.15);
+
+    transition:.15s;
+}
