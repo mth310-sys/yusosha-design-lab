@@ -1,40 +1,62 @@
 const tabs = document.querySelectorAll(".tab");
 const editor = document.getElementById("editor");
+const topFrame = document.getElementById("top-frame");
+
+let topHeightValue = 80;
+
+function showTopEditor() {
+    editor.innerHTML = `
+        <h3>Top編集</h3>
+
+        <label>
+            高さ
+
+            <input
+                type="range"
+                id="topHeight"
+                min="40"
+                max="180"
+                value="${topHeightValue}"
+            >
+        </label>
+
+        <span id="topValue">${topHeightValue}px</span>
+    `;
+
+    const topHeight = document.getElementById("topHeight");
+    const topValue = document.getElementById("topValue");
+
+    topHeight.addEventListener("input", () => {
+        topHeightValue = Number(topHeight.value);
+        topFrame.style.height = `${topHeightValue}px`;
+        topValue.textContent = `${topHeightValue}px`;
+    });
+}
+
+function showPlaceholderEditor(name) {
+    editor.innerHTML = `<h3>${name}編集</h3>`;
+}
 
 tabs.forEach(tab => {
-
-    tab.addEventListener("click",()=>{
-
-        tabs.forEach(t=>t.classList.remove("active"));
-
+    tab.addEventListener("click", () => {
+        tabs.forEach(button => button.classList.remove("active"));
         tab.classList.add("active");
 
         const name = tab.dataset.tab;
 
-        if(name==="top"){
-            editor.textContent="Top編集";
+        if (name === "top") {
+            showTopEditor();
         }
 
-        if(name==="side"){
-            editor.textContent="Side編集";
+        if (name === "side") {
+            showPlaceholderEditor("Side");
         }
 
-        if(name==="base"){
-            editor.textContent="Base編集";
+        if (name === "base") {
+            showPlaceholderEditor("Base");
         }
-
     });
-
 });
 
-const topFrame=document.getElementById("top-frame");
-const topHeight=document.getElementById("topHeight");
-const topValue=document.getElementById("topValue");
-
-topHeight.addEventListener("input",()=>{
-
-    topFrame.style.height=topHeight.value+"px";
-
-    topValue.textContent=topHeight.value+"px";
-
-});
+topFrame.style.height = `${topHeightValue}px`;
+showTopEditor();
