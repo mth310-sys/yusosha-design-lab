@@ -13,66 +13,80 @@
 <div class="app">
 
 <header>
-
-<h1>遊創舎 Design Lab</h1>
-
-<p>Frame Designer Ver.0.1</p>
-
+    <h1>遊創舎 Design Lab</h1>
+    <p>Frame Designer Ver.0.1</p>
 </header>
 
 <section class="preview">
 
-<div class="preview-title">
-Preview
-</div>
+    <div class="preview-title">
+        Preview
+    </div>
 
-<div class="preview-area">
-    <div class="canvas-guide">
+    <div class="preview-area">
 
-        <div id="top-frame"></div>
+        <div class="canvas-guide">
 
-        <div class="center-line vertical"></div>
-        <div class="center-line horizontal"></div>
+            <div id="top-frame"></div>
+
+            <div class="center-line vertical"></div>
+            <div class="center-line horizontal"></div>
+
+        </div>
 
     </div>
-</div>
 
 </section>
 
 <nav class="tabs">
 
-<button class="tab active" data-tab="top">
-Top
-</button>
+    <button class="tab active" data-tab="top">
+        Top
+    </button>
 
-<button class="tab" data-tab="side">
-Side
-</button>
+    <button class="tab" data-tab="side">
+        Side
+    </button>
 
-<button class="tab" data-tab="base">
-Base
-</button>
+    <button class="tab" data-tab="base">
+        Base
+    </button>
 
 </nav>
 
 <section id="editor">
 
-<h3>Top編集</h3>
+    <h3>Top編集</h3>
 
-<label>
+    <label>
+        高さ
 
-高さ
+        <input
+            type="range"
+            id="topHeight"
+            min="40"
+            max="180"
+            value="80"
+        >
+    </label>
 
-<input
-type="range"
-id="topHeight"
-min="40"
-max="180"
-value="80">
+    <span id="topValue">80px</span>
 
-</label>
+    <br><br>
 
-<span id="topValue">80px</span>
+    <label>
+        分割数
+
+        <select id="topSplit">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </label>
 
 </section>
 
