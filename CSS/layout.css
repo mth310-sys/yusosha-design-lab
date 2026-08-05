@@ -1,1 +1,44 @@
-(
+/* =========================================================
+   layout.css
+   レイアウト
+========================================================= */
+
+.app{
+    max-width:390px;
+    margin:auto;
+    padding:10px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+header h1{
+    font-size:24px;
+}
+
+header p{
+    color:#aaa;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.preview{
+    background:#222;
+    border:2px solid #555;
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:12px;
+}
+
+.preview-title{
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+}
