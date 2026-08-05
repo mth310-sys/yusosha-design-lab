@@ -1,1 +1,44 @@
-(
+/* =========================================================
+   preview.css
+   プレビューエリア
+========================================================= */
+
+.preview-area{
+    width:100%;
+    aspect-ratio:390/600;
+    background:#000;
+    border:2px dashed #666;
+    border-radius:10px;
+}
+
+.canvas-guide{
+    position:relative;
+    width:220px;
+    aspect-ratio:390/600;
+    margin:25px auto;
+    border:2px solid #fff;
+    background:
+        linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+    background-size:20px 20px;
+}
+
+.center-line{
+    position:absolute;
+    background:#ffd400;
+    opacity:.7;
+}
+
+.center-line.vertical{
+    top:0;
+    bottom:0;
+    left:50%;
+    width:1px;
+}
+
+.center-line.horizontal{
+    left:0;
+    right:0;
+    top:50%;
+    height:1px;
+}
