@@ -1,1 +1,44 @@
-(
+/* =========================================================
+   controls.css
+   ボタン・入力部品
+========================================================= */
+
+.tab{
+    flex:1;
+    height:46px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#333;
+    color:#fff;
+
+    font-size:16px;
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.tab.active{
+    background:#ffd400;
+    color:#000;
+    font-weight:bold;
+}
+
+#topSplit{
+    display:block;
+
+    width:100%;
+    height:46px;
+
+    margin-top:10px;
+    padding:0 12px;
+
+    border:2px solid #555;
+    border-radius:10px;
+
+    background:#111;
+    color:#fff;
+
+    font-size:16px;
+}
