@@ -1,8 +1,9 @@
 /* =========================================================
    main.js
+   Design Lab 起動処理
 ========================================================= */
 
-UI.topFrame.style.height =
-    STATE.top.height + "px";
-
-showTopEditor();
+document.addEventListener("DOMContentLoaded", function () {
+    updateTopPreview();
+    showTopEditor();
+});
