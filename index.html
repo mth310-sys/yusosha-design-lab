@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="CSS/preview.css">
 <link rel="stylesheet" href="CSS/frames/f1.css">
 <link rel="stylesheet" href="CSS/frames/f2.css">
+<link rel="stylesheet" href="CSS/frames/f3.css">
 <link rel="stylesheet" href="CSS/editor.css">
 <link rel="stylesheet" href="CSS/controls.css">
 <link rel="stylesheet" href="CSS/responsive.css">
@@ -21,7 +22,7 @@
 
     <header>
         <h1>遊創舎 Design Lab</h1>
-        <p>Frame Preview Ver.F1 / F2</p>
+        <p>Frame Preview Ver.F1 / F2 / F3</p>
     </header>
 
     <section class="preview" aria-labelledby="preview-heading">
@@ -48,22 +49,9 @@
     </section>
 
     <nav class="frame-switcher" aria-label="フレーム選択">
-        <button
-            class="frame-option active"
-            type="button"
-            data-frame="f1"
-            aria-pressed="true"
-        >
-            F1
-        </button>
-        <button
-            class="frame-option"
-            type="button"
-            data-frame="f2"
-            aria-pressed="false"
-        >
-            F2
-        </button>
+        <button class="frame-option active" type="button" data-frame="f1" aria-pressed="true">F1</button>
+        <button class="frame-option" type="button" data-frame="f2" aria-pressed="false">F2</button>
+        <button class="frame-option" type="button" data-frame="f3" aria-pressed="false">F3</button>
     </nav>
 
     <section id="editor" aria-live="polite"></section>
@@ -75,6 +63,7 @@
 <script src="JS/ui.js"></script>
 <script src="JS/frames/f1.js"></script>
 <script src="JS/frames/f2.js"></script>
+<script src="JS/frames/f3.js"></script>
 <script src="JS/preview.js"></script>
 <script src="JS/main.js"></script>
 
