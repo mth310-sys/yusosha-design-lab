@@ -1,53 +1,72 @@
-/* F5 ダーク・アルカナ アーマーフレーム */
+/* F5 ダーク・アルカナ アーマーフレーム 第2稿 */
 (function registerF5Frame(){
  const overlap={top:5,right:5,bottom:5,left:5};
  const slots=[
-  {id:"main-display",shortLabel:"メイン",label:"大型魔導液晶",x:48,y:72,width:294,height:178,overlap:{...overlap}},
-  {id:"message",shortLabel:"メッセージ",label:"魔導情報帯",x:57,y:260,width:276,height:34,overlap:{...overlap}},
-  {id:"reels",shortLabel:"リール",label:"リール左・中・右",x:78,y:304,width:234,height:92,overlap:{...overlap}},
-  {id:"bet-info",shortLabel:"BET列",label:"START・MAX BET・情報表示",x:55,y:407,width:280,height:30,overlap:{...overlap}},
-  {id:"start-stop",shortLabel:"START列",label:"STOP左・中・右・操作部",x:70,y:447,width:250,height:42,overlap:{...overlap}},
-  {id:"lower-panel",shortLabel:"下パネル",label:"七紋章ビジュアルパネル",x:48,y:503,width:294,height:82,overlap:{...overlap}}
+  {id:"main-display",shortLabel:"メイン",label:"大型魔導液晶",x:47,y:78,width:296,height:170,overlap:{...overlap}},
+  {id:"message",shortLabel:"メッセージ",label:"魔導情報帯",x:53,y:257,width:284,height:37,overlap:{...overlap}},
+  {id:"reels",shortLabel:"リール",label:"リール左・中・右",x:76,y:307,width:238,height:90,overlap:{...overlap}},
+  {id:"bet-info",shortLabel:"BET列",label:"START・MAX BET・情報表示",x:51,y:404,width:288,height:32,overlap:{...overlap}},
+  {id:"start-stop",shortLabel:"START列",label:"STOP左・中・右・操作部",x:66,y:443,width:258,height:45,overlap:{...overlap}},
+  {id:"lower-panel",shortLabel:"下パネル",label:"七紋章ビジュアルパネル",x:47,y:501,width:296,height:84,overlap:{...overlap}}
  ];
  function getOpening(s){return{x:s.x+5,y:s.y+5,width:s.width-10,height:s.height-10};}
  function rect(r){return`M ${r.x} ${r.y} H ${r.x+r.width} V ${r.y+r.height} H ${r.x} Z`;}
  function ring(s,i){const o=getOpening(s),r={x:s.x+i,y:s.y+i,width:s.width-i*2,height:s.height-i*2};return`${rect(r)} ${rect(o)}`;}
  function buildSvg(){
   const cuts=slots.map(s=>{const o=getOpening(s);return`<rect x="${o.x}" y="${o.y}" width="${o.width}" height="${o.height}" rx="${s.id==='main-display'?5:2}" fill="#000"/>`;}).join('');
-  const bezels=slots.map(s=>`<path d="${ring(s,0)}" fill="url(#f5BlackChrome)" fill-rule="evenodd"/><path d="${ring(s,2)}" fill="#4c176b" fill-rule="evenodd" opacity=".7"/>`).join('');
+  const bezels=slots.map(s=>`<path d="${ring(s,0)}" fill="url(#f5BlackChrome)" fill-rule="evenodd"/><path d="${ring(s,2)}" fill="#5a1777" fill-rule="evenodd" opacity=".78"/>`).join('');
   return`<svg class="frame-shell f5-shell" viewBox="0 0 390 600" preserveAspectRatio="none" aria-hidden="true">
   <defs>
-   <linearGradient id="f5Armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020104"/><stop offset=".18" stop-color="#32203d"/><stop offset=".35" stop-color="#07050a"/><stop offset=".55" stop-color="#211229"/><stop offset=".75" stop-color="#050306"/><stop offset="1" stop-color="#42234d"/></linearGradient>
-   <linearGradient id="f5BlackChrome" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08070a"/><stop offset=".16" stop-color="#716378"/><stop offset=".28" stop-color="#171219"/><stop offset=".48" stop-color="#a38aa8"/><stop offset=".6" stop-color="#0a080c"/><stop offset=".82" stop-color="#5a3b62"/><stop offset="1" stop-color="#050406"/></linearGradient>
-   <radialGradient id="f5Purple"><stop stop-color="#f3dcff"/><stop offset=".2" stop-color="#d06cff"/><stop offset=".55" stop-color="#7d20c5"/><stop offset="1" stop-color="#26013e"/></radialGradient>
-   <filter id="f5Glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+   <linearGradient id="f5Armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#010102"/><stop offset=".12" stop-color="#25162e"/><stop offset=".28" stop-color="#050406"/><stop offset=".45" stop-color="#3b2247"/><stop offset=".62" stop-color="#09060c"/><stop offset=".8" stop-color="#221128"/><stop offset="1" stop-color="#4e2a58"/></linearGradient>
+   <linearGradient id="f5BlackChrome" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050406"/><stop offset=".12" stop-color="#8f7a96"/><stop offset=".25" stop-color="#1a141d"/><stop offset=".38" stop-color="#c0a8c4"/><stop offset=".54" stop-color="#09060a"/><stop offset=".68" stop-color="#5e4165"/><stop offset=".84" stop-color="#b89ac0"/><stop offset="1" stop-color="#050406"/></linearGradient>
+   <radialGradient id="f5Purple"><stop stop-color="#f8e8ff"/><stop offset=".18" stop-color="#d96bff"/><stop offset=".52" stop-color="#861fd1"/><stop offset="1" stop-color="#230034"/></radialGradient>
+   <filter id="f5Glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
    <mask id="f5Cuts"><rect width="390" height="600" fill="#fff"/>${cuts}</mask>
   </defs>
-  <!-- 艶黒の一体装甲 -->
-  <path d="M 20 7 H 370 L 389 31 V 574 L 370 598 H 20 L 1 574 V 31 Z" fill="url(#f5Armor)" mask="url(#f5Cuts)"/>
-  <!-- 上部ゴシック冠と左右円形ユニット -->
-  <path d="M 54 8 Q 100 2 137 27 L 164 12 L 195 32 L 226 12 L 253 27 Q 290 2 336 8 L 354 52 L 322 70 H 68 L 36 52 Z" fill="url(#f5BlackChrome)" stroke="#4f1a68" stroke-width="2"/>
-  <circle cx="48" cy="48" r="34" fill="#08070a" stroke="#6c2b91" stroke-width="5"/><circle cx="48" cy="48" r="22" fill="#161019" stroke="#9e51c9" stroke-width="2"/>
-  <circle cx="342" cy="48" r="34" fill="#08070a" stroke="#6c2b91" stroke-width="5"/><circle cx="342" cy="48" r="22" fill="#161019" stroke="#9e51c9" stroke-width="2"/>
-  <polygon points="195,4 209,22 195,39 181,22" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
-  <!-- 段差連結型サイドアーマー -->
-  <path d="M 11 77 L 46 60 L 57 91 L 48 158 L 60 217 L 47 278 L 61 339 L 48 401 L 62 459 L 48 516 L 62 580 L 25 596 L 7 567 L 18 505 L 6 445 L 18 385 L 5 324 L 18 264 L 6 202 L 18 143 Z" fill="url(#f5BlackChrome)" stroke="#5e2677" stroke-width="2"/>
-  <path d="M 379 77 L 344 60 L 333 91 L 342 158 L 330 217 L 343 278 L 329 339 L 342 401 L 328 459 L 342 516 L 328 580 L 365 596 L 383 567 L 372 505 L 384 445 L 372 385 L 385 324 L 372 264 L 384 202 L 372 143 Z" fill="url(#f5BlackChrome)" stroke="#5e2677" stroke-width="2"/>
-  <!-- 縦クリスタル魔力レール -->
-  <path d="M 31 88 L 42 104 L 34 151 L 44 207 L 34 263 L 45 320 L 34 379 L 46 437 L 35 495 L 43 554" fill="none" stroke="#a747e8" stroke-width="7" class="f5-mana" filter="url(#f5Glow)"/>
-  <path d="M 359 88 L 348 104 L 356 151 L 346 207 L 356 263 L 345 320 L 356 379 L 344 437 L 355 495 L 347 554" fill="none" stroke="#a747e8" stroke-width="7" class="f5-mana" filter="url(#f5Glow)"/>
-  <!-- 羽根・葉状の彫刻 -->
-  <g fill="none" stroke="#8d7194" stroke-width="2" opacity=".8"><path d="M 18 102 Q 55 119 20 151 Q 57 169 20 202 Q 58 220 20 253 M 19 340 Q 57 358 20 390 Q 58 409 21 441 Q 58 459 22 491"/><path d="M 372 102 Q 335 119 370 151 Q 333 169 370 202 Q 332 220 370 253 M 371 340 Q 333 358 370 390 Q 332 409 369 441 Q 332 459 368 491"/></g>
-  <!-- 操作部を前方へ張り出す腰装甲 -->
-  <path d="M 43 397 L 347 397 L 365 430 L 346 495 L 316 503 H 74 L 44 495 L 25 430 Z" fill="url(#f5Armor)" stroke="#6b347e" stroke-width="2" opacity=".95"/>
-  <circle cx="47" cy="454" r="17" fill="#08060a" stroke="#86509a" stroke-width="3"/><circle cx="343" cy="454" r="17" fill="#08060a" stroke="#86509a" stroke-width="3"/>
-  <!-- 下部祭壇装甲 -->
-  <path d="M 18 500 L 48 487 L 62 581 L 151 577 L 195 598 L 239 577 L 328 581 L 342 487 L 372 500 L 383 575 L 368 598 H 22 L 7 575 Z" fill="url(#f5BlackChrome)" opacity=".9"/>
-  <polygon points="195,565 210,581 195,597 180,581" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
+
+  <path d="M 18 4 H 372 L 389 30 V 575 L 370 599 H 20 L 1 575 V 30 Z" fill="url(#f5Armor)" mask="url(#f5Cuts)"/>
+
+  <!-- 厚い上部冠：円形ユニットとロゴ台座を一体化 -->
+  <path d="M 29 8 H 361 L 382 31 L 367 68 L 335 78 H 55 L 23 68 L 8 31 Z" fill="url(#f5BlackChrome)" stroke="#6d2b85" stroke-width="2.5"/>
+  <path d="M 86 9 Q 126 2 155 23 L 176 12 L 195 30 L 214 12 L 235 23 Q 264 2 304 9 L 323 38 L 305 66 H 85 L 67 38 Z" fill="#09060b" stroke="#4c1b61" stroke-width="2"/>
+  <circle cx="47" cy="45" r="35" fill="#070509" stroke="#6f268d" stroke-width="6"/><circle cx="47" cy="45" r="23" fill="#140d18" stroke="#b05bdd" stroke-width="2"/>
+  <circle cx="343" cy="45" r="35" fill="#070509" stroke="#6f268d" stroke-width="6"/><circle cx="343" cy="45" r="23" fill="#140d18" stroke="#b05bdd" stroke-width="2"/>
+  <polygon points="195,3 211,22 195,42 179,22" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
+
+  <!-- 二重構造の左右サイド装甲 -->
+  <path d="M 8 78 L 40 63 L 55 92 L 49 154 L 58 209 L 49 264 L 59 320 L 49 377 L 61 434 L 50 490 L 61 548 L 47 590 L 20 598 L 6 565 L 16 505 L 5 447 L 16 389 L 5 331 L 16 272 L 6 214 L 16 155 Z" fill="url(#f5BlackChrome)" stroke="#5d2473" stroke-width="2"/>
+  <path d="M 382 78 L 350 63 L 335 92 L 341 154 L 332 209 L 341 264 L 331 320 L 341 377 L 329 434 L 340 490 L 329 548 L 343 590 L 370 598 L 384 565 L 374 505 L 385 447 L 374 389 L 385 331 L 374 272 L 384 214 L 374 155 Z" fill="url(#f5BlackChrome)" stroke="#5d2473" stroke-width="2"/>
+  <path d="M 28 87 L 47 80 L 48 145 L 43 198 L 49 252 L 44 306 L 50 361 L 44 414 L 51 468 L 43 523 L 46 562" fill="none" stroke="#120a17" stroke-width="12"/>
+  <path d="M 362 87 L 343 80 L 342 145 L 347 198 L 341 252 L 346 306 L 340 361 L 346 414 L 339 468 L 347 523 L 344 562" fill="none" stroke="#120a17" stroke-width="12"/>
+
+  <!-- 紫の魔力管 -->
+  <path d="M 33 89 L 40 111 L 34 151 L 42 207 L 34 262 L 43 318 L 34 375 L 44 431 L 35 488 L 41 548" fill="none" stroke="#b447ef" stroke-width="7" class="f5-mana" filter="url(#f5Glow)"/>
+  <path d="M 357 89 L 350 111 L 356 151 L 348 207 L 356 262 L 347 318 L 356 375 L 346 431 L 355 488 L 349 548" fill="none" stroke="#b447ef" stroke-width="7" class="f5-mana" filter="url(#f5Glow)"/>
+
+  <!-- リール周辺へ食い込む縦装甲 -->
+  <path d="M 55 292 L 79 300 L 79 399 L 54 405 L 42 381 L 48 336 Z" fill="url(#f5Armor)" stroke="#6f2e88" stroke-width="2"/>
+  <path d="M 335 292 L 311 300 L 311 399 L 336 405 L 348 381 L 342 336 Z" fill="url(#f5Armor)" stroke="#6f2e88" stroke-width="2"/>
+  <polygon points="58,318 69,329 58,340 47,329" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
+  <polygon points="332,318 321,329 332,340 343,329" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
+
+  <!-- 羽根・蔓状彫刻 -->
+  <g fill="none" stroke="#a37cab" stroke-width="2" opacity=".82"><path d="M 14 105 Q 50 124 17 153 Q 52 172 18 202 Q 53 220 18 252 M 17 351 Q 52 370 18 400 Q 53 418 19 448 Q 54 468 20 498"/><path d="M 376 105 Q 340 124 373 153 Q 338 172 372 202 Q 337 220 372 252 M 373 351 Q 338 370 372 400 Q 337 418 371 448 Q 336 468 370 498"/></g>
+
+  <!-- 張り出した操作コンソール -->
+  <path d="M 37 392 L 353 392 L 372 423 L 359 479 L 333 499 L 57 499 L 31 479 L 18 423 Z" fill="url(#f5Armor)" stroke="#7b3794" stroke-width="2.5"/>
+  <path d="M 55 410 H 335 L 350 430 L 340 472 L 320 486 H 70 L 50 472 L 40 430 Z" fill="#08060a" stroke="#472055" stroke-width="1.5"/>
+  <circle cx="48" cy="452" r="20" fill="#070508" stroke="#9661a8" stroke-width="3"/><circle cx="342" cy="452" r="20" fill="#070508" stroke="#9661a8" stroke-width="3"/>
+  <circle cx="145" cy="466" r="17" fill="#2a0610" stroke="#ff4a65" stroke-width="3"/><circle cx="195" cy="466" r="17" fill="#2a0610" stroke="#ff4a65" stroke-width="3"/><circle cx="245" cy="466" r="17" fill="#2a0610" stroke="#ff4a65" stroke-width="3"/>
+
+  <!-- 下パネルを挟む翼状装甲 -->
+  <path d="M 20 500 L 55 487 L 71 513 L 64 583 L 101 575 L 82 598 H 22 L 6 575 Z" fill="url(#f5BlackChrome)"/>
+  <path d="M 370 500 L 335 487 L 319 513 L 326 583 L 289 575 L 308 598 H 368 L 384 575 Z" fill="url(#f5BlackChrome)"/>
+  <path d="M 78 585 L 146 575 L 195 598 L 244 575 L 312 585" fill="none" stroke="#5d2b73" stroke-width="5"/>
+  <polygon points="195,562 212,580 195,599 178,580" fill="url(#f5Purple)" class="f5-crystal" filter="url(#f5Glow)"/>
+
   ${bezels}
-  <!-- 細い紫エッジ -->
-  <path d="M 22 8 H 368 L 386 32 V 572 L 367 596 H 23 L 4 572 V 32 Z" fill="none" stroke="#8d3db5" stroke-width="2" opacity=".75"/>
+  <path d="M 20 5 H 370 L 387 31 V 574 L 368 597 H 22 L 3 574 V 31 Z" fill="none" stroke="#8f3db4" stroke-width="2" opacity=".82"/>
   </svg>`;
  }
- FRAME_REGISTRY.f5={id:"f5",code:"F5",name:"ダーク・アルカナ アーマーフレーム",description:"艶黒の魔導装甲へ紫の魔晶石と発光レールを埋め込み、ゴシック彫刻・円形上部ユニット・張り出した操作コンソール・祭壇状ベースを段差連結したダークファンタジーフレーム。",slots,getOpening,buildSvg};
+ FRAME_REGISTRY.f5={id:"f5",code:"F5",name:"ダーク・アルカナ アーマーフレーム",description:"艶黒の魔導装甲を多層化し、上部冠と円形ユニットを一体化。左右二重装甲、紫の魔力管、リールへ食い込む縦装甲、張り出した3STOPコンソール、翼状下部装甲を持つ高密度ダークファンタジーフレーム。",slots,getOpening,buildSvg};
 })();
