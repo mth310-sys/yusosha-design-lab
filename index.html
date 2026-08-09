@@ -8,9 +8,7 @@
 <link rel="stylesheet" href="CSS/base.css">
 <link rel="stylesheet" href="CSS/layout.css">
 <link rel="stylesheet" href="CSS/preview.css">
-<link rel="stylesheet" href="CSS/top.css">
-<link rel="stylesheet" href="CSS/side.css">
-<link rel="stylesheet" href="CSS/baseframe.css">
+<link rel="stylesheet" href="CSS/frames/f1.css">
 <link rel="stylesheet" href="CSS/editor.css">
 <link rel="stylesheet" href="CSS/controls.css">
 <link rel="stylesheet" href="CSS/responsive.css">
@@ -18,96 +16,56 @@
 
 <body>
 
-<div class="app">
+<main class="app">
 
-<header>
-    <h1>遊創舎 Design Lab</h1>
-    <p>Frame Designer Ver.0.1</p>
-</header>
+    <header>
+        <h1>遊創舎 Design Lab</h1>
+        <p>Frame Preview Ver.F1</p>
+    </header>
 
-<section class="preview">
+    <section class="preview" aria-labelledby="preview-heading">
 
-    <div class="preview-title">
-        Preview
-    </div>
-
-    <div class="preview-area">
-
-        <div class="canvas-guide">
-
-            <div id="top-frame"></div>
-
-            <div class="center-line vertical"></div>
-            <div class="center-line horizontal"></div>
-
+        <div class="preview-title">
+            <strong id="preview-heading">Preview</strong>
+            <span>390 × 600</span>
         </div>
 
-    </div>
+        <div class="preview-area">
+            <div
+                class="canvas-guide"
+                id="framePreview"
+                role="img"
+                aria-label="F1 白とメタリックブルーの立体フレーム"
+            ></div>
+        </div>
 
-</section>
+        <div class="preview-caption">
+            <span id="frameCode">F1</span>
+            <strong id="frameName">ホワイト・ブルーフレーム</strong>
+        </div>
 
-<nav class="tabs">
+    </section>
 
-    <button class="tab active" data-tab="top">
-        Top
-    </button>
-
-    <button class="tab" data-tab="side">
-        Side
-    </button>
-
-    <button class="tab" data-tab="base">
-        Base
-    </button>
-
-</nav>
-
-<section id="editor">
-
-    <h3>Top編集</h3>
-
-    <label>
-        高さ
-
-        <input
-            type="range"
-            id="topHeight"
-            min="40"
-            max="180"
-            value="80"
+    <nav class="frame-switcher" aria-label="フレーム選択">
+        <button
+            class="frame-option active"
+            type="button"
+            data-frame="f1"
+            aria-pressed="true"
         >
-    </label>
+            F1
+        </button>
+    </nav>
 
-    <span id="topValue">80px</span>
+    <section id="editor" aria-live="polite"></section>
 
-    <br><br>
-
-    <label>
-        分割数
-
-        <select id="topSplit">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-        </select>
-    </label>
-
-</section>
-
-</div>
+</main>
 
 <script src="JS/config.js"></script>
 <script src="JS/state.js"></script>
 <script src="JS/ui.js"></script>
+<script src="JS/frames/f1.js"></script>
 <script src="JS/preview.js"></script>
-<script src="JS/top.js"></script>
-<script src="JS/side.js"></script>
-<script src="JS/base.js"></script>
-<script src="JS/storage.js"></script>
 <script src="JS/main.js"></script>
 
 </body>

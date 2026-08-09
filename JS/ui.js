@@ -1,46 +1,35 @@
 /* =========================================================
    ui.js
+   DOM参照・フレーム切替
 ========================================================= */
 
 const UI = {
-
-    topFrame :
-        document.getElementById("top-frame"),
-
-    editor :
-        document.getElementById("editor"),
-
-    tabs :
-        document.querySelectorAll(".tab")
-
+    framePreview:document.getElementById("framePreview"),
+    frameCode:document.getElementById("frameCode"),
+    frameName:document.getElementById("frameName"),
+    editor:document.getElementById("editor"),
+    frameButtons:document.querySelectorAll(".frame-option")
 };
 
-UI.tabs.forEach(tab=>{
+function bindFrameControls(){
+    UI.frameButtons.forEach(function(button){
+        button.addEventListener("click",function(){
+            const frameId = button.dataset.frame;
 
-    tab.addEventListener("click",()=>{
+            if(!FRAME_REGISTRY[frameId]){
+                return;
+            }
 
-        UI.tabs.forEach(button=>
-            button.classList.remove("active")
-        );
+            STATE.frame.selected = frameId;
 
-        tab.classList.add("active");
+            UI.frameButtons.forEach(function(option){
+                const isActive = option === button;
 
-        switch(tab.dataset.tab){
+                option.classList.toggle("active",isActive);
+                option.setAttribute("aria-pressed",String(isActive));
+            });
 
-            case "top":
-                showTopEditor();
-                break;
-
-            case "side":
-                UI.editor.innerHTML="<h3>Side編集</h3>";
-                break;
-
-            case "base":
-                UI.editor.innerHTML="<h3>Base編集</h3>";
-                break;
-
-        }
-
+            renderFramePreview();
+        });
     });
-
-});
+}

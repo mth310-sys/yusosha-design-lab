@@ -1,44 +1,39 @@
 /* =========================================================
    controls.css
-   ボタン・入力部品
+   フレーム切替
 ========================================================= */
 
-.tab{
+.frame-switcher{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.frame-option{
     flex:1;
-    height:46px;
-
-    border:none;
+    min-height:46px;
+    border:1px solid #465565;
     border-radius:10px;
-
-    background:#333;
-    color:#fff;
-
-    font-size:16px;
+    background:#202832;
+    color:#dcecff;
     cursor:pointer;
-
-    transition:.2s;
+    transition:
+        border-color .2s,
+        background-color .2s,
+        box-shadow .2s;
 }
 
-.tab.active{
-    background:#ffd400;
-    color:#000;
-    font-weight:bold;
-}
-
-#topSplit{
-    display:block;
-
-    width:100%;
-    height:46px;
-
-    margin-top:10px;
-    padding:0 12px;
-
-    border:2px solid #555;
-    border-radius:10px;
-
-    background:#111;
+.frame-option.active{
+    border-color:#51e5ff;
+    background:linear-gradient(180deg,#144d77,#092d4a);
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.12),
+        0 0 14px rgba(40,209,255,.2);
     color:#fff;
+    font-weight:800;
+}
 
-    font-size:16px;
+.frame-option:focus-visible{
+    outline:2px solid #fff;
+    outline-offset:2px;
 }

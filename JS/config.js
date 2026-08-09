@@ -4,23 +4,11 @@
 ========================================================= */
 
 const CONFIG = {
-
-    /* =====================================================
-       プレビュー
-    ===================================================== */
-
-    previewWidth : 390,
-    previewHeight : 600,
-
-    /* =====================================================
-       Top
-    ===================================================== */
-
-    topMinHeight : 40,
-    topMaxHeight : 180,
-    topDefaultHeight : 80,
-
-    topMinSplit : 1,
-    topMaxSplit : 7
-
+    previewWidth:390,
+    previewHeight:600,
+    defaultFrame:"f1"
 };
+
+/* 各フレームモジュールを登録する共通レジストリ */
+
+const FRAME_REGISTRY = Object.create(null);

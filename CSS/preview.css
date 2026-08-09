@@ -1,44 +1,53 @@
 /* =========================================================
    preview.css
-   プレビューエリア
+   390 × 600 フレームプレビュー
 ========================================================= */
 
 .preview-area{
+    position:relative;
     width:100%;
     aspect-ratio:390/600;
-    background:#000;
-    border:2px dashed #666;
-    border-radius:10px;
+    overflow:hidden;
+    border:1px solid #5d6874;
+    border-radius:8px;
+    background:#020305;
 }
 
 .canvas-guide{
-    position:relative;
-    width:220px;
-    aspect-ratio:390/600;
-    margin:25px auto;
-    border:2px solid #fff;
-    background:
-        linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
-    background-size:20px 20px;
-}
-
-.center-line{
     position:absolute;
-    background:#ffd400;
-    opacity:.7;
+    inset:0;
+    overflow:hidden;
+    background:#000;
+    isolation:isolate;
 }
 
-.center-line.vertical{
-    top:0;
-    bottom:0;
-    left:50%;
-    width:1px;
+.frame-slot-layer,
+.frame-shell-layer{
+    position:absolute;
+    inset:0;
 }
 
-.center-line.horizontal{
-    left:0;
-    right:0;
-    top:50%;
-    height:1px;
+.frame-slot-layer{
+    z-index:1;
+}
+
+.frame-shell-layer{
+    z-index:2;
+    pointer-events:none;
+}
+
+.frame-slot{
+    position:absolute;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 35%,#070b10 0,#010203 64%,#000 100%);
+    box-shadow:
+        inset 0 0 12px rgba(0,0,0,.95),
+        inset 0 0 0 1px rgba(114,224,255,.08);
+}
+
+.frame-shell{
+    display:block;
+    width:100%;
+    height:100%;
 }
