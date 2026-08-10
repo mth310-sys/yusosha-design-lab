@@ -16,8 +16,10 @@ function renderLayerControls(frame){
             <label><input type="checkbox" id="layerShell" ${frame.layerModel.shell?"checked":""}> SHELL / 外装</label>
         </div>
         <div class="layer-presets">
-            <button type="button" data-layer-preset="frame">骨格のみ</button>
-            <button type="button" data-layer-preset="parts">骨格＋パーツ</button>
+            <button type="button" data-layer-preset="frame-only">骨格のみ</button>
+            <button type="button" data-layer-preset="parts-only">パーツのみ</button>
+            <button type="button" data-layer-preset="shell-only">外装のみ</button>
+            <button type="button" data-layer-preset="frame-parts">骨格＋パーツ</button>
             <button type="button" data-layer-preset="complete">完成状態</button>
         </div>
     </section>`;
@@ -43,24 +45,41 @@ function bindLayerControls(frame){
     const frameInput=document.getElementById("layerFrame");
     const partsInput=document.getElementById("layerParts");
     const shellInput=document.getElementById("layerShell");
+
     function sync(){
         frame.layerModel.frame=frameInput.checked;
         frame.layerModel.parts=partsInput.checked;
         frame.layerModel.shell=shellInput.checked;
         redrawFrameShell(frame);
     }
+
+    function setLayers(showFrame,showParts,showShell){
+        frameInput.checked=showFrame;
+        partsInput.checked=showParts;
+        shellInput.checked=showShell;
+        sync();
+    }
+
     [frameInput,partsInput,shellInput].forEach(input=>input.addEventListener("change",sync));
+
     document.querySelectorAll("[data-layer-preset]").forEach(button=>{
         button.addEventListener("click",function(){
-            const preset=button.dataset.layerPreset;
-            if(preset==="frame"){
-                frameInput.checked=true;partsInput.checked=false;shellInput.checked=false;
-            }else if(preset==="parts"){
-                frameInput.checked=true;partsInput.checked=true;shellInput.checked=false;
-            }else{
-                frameInput.checked=true;partsInput.checked=true;shellInput.checked=true;
+            switch(button.dataset.layerPreset){
+                case "frame-only":
+                    setLayers(true,false,false);
+                    break;
+                case "parts-only":
+                    setLayers(false,true,false);
+                    break;
+                case "shell-only":
+                    setLayers(false,false,true);
+                    break;
+                case "frame-parts":
+                    setLayers(true,true,false);
+                    break;
+                default:
+                    setLayers(true,true,true);
             }
-            sync();
         });
     });
 }
