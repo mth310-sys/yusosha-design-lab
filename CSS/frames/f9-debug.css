@@ -42,11 +42,12 @@
 .f9-frame .f9-side-mech.left{left:1px}
 .f9-frame .f9-side-mech.right{right:1px}
 
-/* Lower fixed LED bars: now 15px total farther outward from the earlier 20px baseline. */
-.f9-frame .f9-lower-led{width:30px;top:9px;bottom:9px;z-index:6}
-.f9-frame .f9-lower-led.left{left:5px}
-.f9-frame .f9-lower-led.right{right:5px}
-.f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 16px #89beff,0 0 5px #fff}
+/* Lower fixed LED bars only: another 10px outward + one size larger.
+   They remain non-rotating fixed light bars. */
+.f9-frame .f9-lower-led{width:36px;top:5px;bottom:5px;z-index:6}
+.f9-frame .f9-lower-led.left{left:-5px}
+.f9-frame .f9-lower-led.right{right:-5px}
+.f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 18px #89beff,0 0 6px #fff}
 
 /* Lower exterior rails: segmented molded look while keeping LED visible. */
 .f9-frame .f9-lower-shell{width:36px;z-index:2}
