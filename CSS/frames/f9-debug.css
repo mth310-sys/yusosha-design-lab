@@ -38,14 +38,13 @@
 .f9-frame .f9-side-mech.left{left:1px}
 .f9-frame .f9-side-mech.right{right:1px}
 
-/* Lower fixed LEDs stay at the newly tested outer position and enlarged size. */
+/* Lower fixed LEDs: keep enlarged size, return 10px inward for visibility. */
 .f9-frame .f9-lower-led{width:36px;top:5px;bottom:5px;z-index:6}
-.f9-frame .f9-lower-led.left{left:-15px}
-.f9-frame .f9-lower-led.right{right:-15px}
+.f9-frame .f9-lower-led.left{left:-5px}
+.f9-frame .f9-lower-led.right{right:-5px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 18px #89beff,0 0 6px #fff}
 
-/* Lower chrome now follows the LED outward instead of remaining behind it.
-   Only shell geometry changes; LED geometry/state stays untouched. */
+/* Lower chrome stays in the current outward-following shape for now. */
 .f9-frame .f9-lower-shell{
   width:48px;
   z-index:2;
