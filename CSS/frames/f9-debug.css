@@ -46,9 +46,12 @@
 /* Waist also stays outside the control deck. */
 .f9-frame .f9-waist{width:35px;z-index:1}
 
-/* The working prism units stay above the decorative shell.
-   Their size/position/rotation is deliberately NOT changed here. */
+/* Protected SIDE mechanism placement only.
+   Original housing/prism/face/rotation geometry is untouched.
+   Shift each complete mechanism 5px toward its cabinet edge. */
 .f9-frame .f9-side-mech{z-index:5}
+.f9-frame .f9-side-mech.left{left:4px}
+.f9-frame .f9-side-mech.right{right:4px}
 
 /* Lower-panel LEDs are fixed light bars, not rotating mechanisms. */
 .f9-frame .f9-lower-led{
