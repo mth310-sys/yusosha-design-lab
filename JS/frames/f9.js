@@ -7,7 +7,7 @@
   const slots=[
     {id:"main-display",shortLabel:"メイン",label:"メインディスプレイ",x:43,y:173,width:304,height:151,overlap:{...overlap}},
     {id:"reels",shortLabel:"リール",label:"上部3リール",x:222,y:49,width:112,height:98,overlap:{...overlap}},
-    {id:"start-stop",shortLabel:"操作卓",label:"操作卓・STOPボタン",x:42,y:326,width:306,height:50,overlap:{...overlap}},
+    {id:"start-stop",shortLabel:"操作卓",label:"操作卓・START/MAX BET/STOPボタン",x:42,y:326,width:306,height:50,overlap:{...overlap}},
     {id:"lower-panel",shortLabel:"下パネル",label:"下パネル",x:50,y:382,width:290,height:140,overlap:{...overlap}}
   ];
 
@@ -69,7 +69,14 @@
 
         <section class="f9-main-display"><div class="f9-screen"><div class="f9-rays"></div><strong>AURUM</strong><small>DUMMY VISUAL LAYER</small></div></section>
 
-        <section class="f9-deck"><div class="f9-deck-lip"></div><div class="f9-stops">${[0,1,2].map(i=>`<button type="button" class="f9-stop" aria-label="stop ${i+1}"></button>`).join('')}</div></section>
+        <section class="f9-deck">
+          <div class="f9-deck-lip"></div>
+          <div class="f9-left-controls">
+            <button type="button" class="f9-maxbet" aria-label="MAX BET"></button>
+            <button type="button" class="f9-start-lever" aria-label="START"><i class="f9-lever-stem"></i><i class="f9-lever-knob"></i></button>
+          </div>
+          <div class="f9-stops">${[0,1,2].map(i=>`<button type="button" class="f9-stop" aria-label="stop ${i+1}"></button>`).join('')}</div>
+        </section>
 
         <section class="f9-lower${lower}"><div class="f9-lower-led left"></div><div class="f9-lower-frame"><div class="f9-lower-art"><div class="f9-art-glow"></div></div></div><div class="f9-lower-led right"></div></section>
       </div>
