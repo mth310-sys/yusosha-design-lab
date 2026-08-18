@@ -19,7 +19,7 @@
   const topColors=[["#ff4d72","#8b0c2a"],["#ff9c35","#883900"],["#ffe34f","#7a6000"]];
   const midColors=[["#4ff2c0","#046d55"],["#43a8ff","#0a3e95"],["#7c82ff","#34217f"]];
 
-  function ledDots(size){
+  function ledDots(){
     const n=15,c=(n-1)/2,out=[];
     for(let y=0;y<n;y++) for(let x=0;x<n;x++){
       const dx=x-c,dy=y-c,r=Math.hypot(dx,dy);
@@ -56,7 +56,6 @@
 
       <div class="f9-frame-layer"${frameDisplay}>
         <div class="f9-inner-spine"></div>
-        <div class="f9-bottom-back"></div>
       </div>
 
       <div class="f9-parts-layer"${partsDisplay}>
@@ -73,8 +72,6 @@
         <section class="f9-deck"><div class="f9-deck-lip"></div><div class="f9-side-key left"><i></i><i></i></div><div class="f9-stops">${[0,1,2].map(i=>`<button type="button" class="f9-stop" aria-label="stop ${i+1}"></button>`).join('')}</div><div class="f9-side-key right"><i class="slot"></i><i></i></div></section>
 
         <section class="f9-lower${lower}"><div class="f9-lower-led left"></div><div class="f9-lower-frame"><div class="f9-lower-art"><div class="f9-art-glow"></div></div></div><div class="f9-lower-led right"></div></section>
-
-        <section class="f9-base"><div class="f9-base-top"></div><div class="f9-tray"></div><div class="f9-vents"></div><div class="f9-foot"></div></section>
       </div>
 
       <div class="f9-shell-layer"${shellDisplay}>
@@ -85,8 +82,16 @@
         ${sideUnit('left','upper',topColors)}${sideUnit('right','upper',topColors)}
         ${sideUnit('left','middle',midColors)}${sideUnit('right','middle',midColors)}
       </div>
+
+      <button type="button" class="f9-preview-side-toggle" onclick="window.F9PreviewToggleSide()">SIDE ${state.sideMode==='open'?'CLOSE':'OPEN'}</button>
     </div>`;
   }
+
+  function toggleSide(){
+    state.sideMode=state.sideMode==='open'?'normal':'open';
+    redrawFrameShell(FRAME_REGISTRY.f9);
+  }
+  window.F9PreviewToggleSide=toggleSide;
 
   function controls(){
     return `<section class="f9-controls" aria-labelledby="f9-control-heading">
