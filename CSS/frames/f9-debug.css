@@ -1,0 +1,4 @@
+/* F9 mechanism visual debug override: slow prism transition for eye-check */
+.f9-frame .f9-mech-prism{
+  transition: transform 5s linear !important;
+}
