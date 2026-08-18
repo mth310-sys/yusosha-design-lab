@@ -69,7 +69,7 @@
 
         <section class="f9-main-display"><div class="f9-screen"><div class="f9-rays"></div><strong>AURUM</strong><small>DUMMY VISUAL LAYER</small></div></section>
 
-        <section class="f9-deck"><div class="f9-deck-lip"></div><div class="f9-side-key left"><i></i><i></i></div><div class="f9-stops">${[0,1,2].map(i=>`<button type="button" class="f9-stop" aria-label="stop ${i+1}"></button>`).join('')}</div></section>
+        <section class="f9-deck"><div class="f9-deck-lip"></div><div class="f9-stops">${[0,1,2].map(i=>`<button type="button" class="f9-stop" aria-label="stop ${i+1}"></button>`).join('')}</div></section>
 
         <section class="f9-lower${lower}"><div class="f9-lower-led left"></div><div class="f9-lower-frame"><div class="f9-lower-art"><div class="f9-art-glow"></div></div></div><div class="f9-lower-led right"></div></section>
       </div>
