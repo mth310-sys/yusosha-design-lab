@@ -83,13 +83,18 @@
         ${sideUnit('left','middle',midColors)}${sideUnit('right','middle',midColors)}
       </div>
 
-      <button type="button" class="f9-preview-side-toggle" onclick="window.F9PreviewToggleSide()">SIDE ${state.sideMode==='open'?'CLOSE':'OPEN'}</button>
+      <button type="button" class="f9-preview-side-toggle" onclick="window.F9PreviewToggleSide()" style="position:absolute;right:8px;bottom:8px;z-index:30;pointer-events:auto;padding:7px 10px;border-radius:8px;border:1px solid #68d9ff;background:#07131dcc;color:#8fe9ff;font-weight:800;font-size:11px;box-shadow:0 0 10px #31cfff66">SIDE ${state.sideMode==='open'?'CLOSE':'OPEN'}</button>
     </div>`;
   }
 
   function toggleSide(){
     state.sideMode=state.sideMode==='open'?'normal':'open';
-    redrawFrameShell(FRAME_REGISTRY.f9);
+    const isOpen=state.sideMode==='open';
+    const cabinet=document.querySelector('.f9-cabinet');
+    if(!cabinet){redrawFrameShell(FRAME_REGISTRY.f9);return;}
+    cabinet.querySelectorAll('.f9-side-mech').forEach(mech=>mech.classList.toggle('open',isOpen));
+    const button=cabinet.querySelector('.f9-preview-side-toggle');
+    if(button) button.textContent=`SIDE ${isOpen?'CLOSE':'OPEN'}`;
   }
   window.F9PreviewToggleSide=toggleSide;
 
