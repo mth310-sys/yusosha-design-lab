@@ -19,19 +19,26 @@
   filter:drop-shadow(0 2px 1px #000);
 }
 
+/* Upper shell: add a sharper secondary facet without entering the circle/reel opening. */
 .f9-frame .f9-shoulder{width:42px;z-index:1;border-top:1px solid #dfe5e9}
 .f9-frame .f9-shoulder.left{left:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
 .f9-frame .f9-shoulder.right{right:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
-.f9-frame .f9-shoulder i{left:4px;top:9px;width:20px;height:38px;background:linear-gradient(140deg,#fff 0 20%,#535b63 22% 45%,#e9edf0 48% 68%,#171b20 72%)}
+.f9-frame .f9-shoulder i{left:4px;top:9px;width:20px;height:38px;background:linear-gradient(140deg,#fff 0 18%,#555e66 20% 39%,#161a1e 41% 49%,#f2f5f7 51% 70%,#69727a 72% 84%,#11151a 86%)}
 .f9-frame .f9-shoulder b{left:6px;width:25px;bottom:10px;box-shadow:inset 0 1px #ffd86c,0 1px 3px #000}
 
+/* Mid shell: match the same bright ridge -> dark valley -> bright ridge rhythm. */
 .f9-frame .f9-mid-shell{width:40px;z-index:1}
 .f9-frame .f9-mid-shell.left{left:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
 .f9-frame .f9-mid-shell.right{right:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
-.f9-frame .f9-mid-shell i{left:4px;width:18px;background:linear-gradient(145deg,#fff,#525a62 40%,#f3f5f6 62%,#20252a)}
+.f9-frame .f9-mid-shell i{left:4px;width:18px;background:linear-gradient(145deg,#fff 0 13%,#737c84 25%,#15191d 43%,#f3f5f6 58%,#626b73 76%,#171b20 100%)}
 .f9-frame .f9-mid-shell b{left:3px;width:27px;box-shadow:inset 0 1px #fff5,0 1px 3px #000}
 
-.f9-frame .f9-waist{width:35px;z-index:1}
+/* Control-deck knuckles receive the same molded-metal contrast. */
+.f9-frame .f9-waist{
+  width:35px;z-index:1;
+  background:
+    linear-gradient(118deg,#0b0d10 0 10%,#7c858d 18%,#f7f9fa 31%,#3e454c 45%,#11151a 55%,#dfe4e8 72%,#596169 84%,#101318 100%);
+}
 
 /* LOCKED SIDE mechanism: position and mechanics remain fixed. */
 .f9-frame .f9-side-mech{z-index:5}
@@ -44,13 +51,15 @@
 .f9-frame .f9-lower-led.right{right:-5px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 18px #89beff,0 0 6px #fff}
 
-/* Lower chrome housing — open the inner side so more of the fixed LED face is visible.
-   LED position/size/state are unchanged. */
+/* Lower chrome housing: preserve the approved opening, only harmonize surface facets. */
 .f9-frame .f9-lower-shell{
   width:44px;
   z-index:2;
   border-top:1px solid #f2f5f7;
   border-bottom:1px solid #15191d;
+  background:
+    linear-gradient(90deg,transparent 0 8%,#fff8 10%,transparent 15% 72%,#fff4 76%,transparent 82%),
+    linear-gradient(145deg,#080a0c 0 8%,#7a838b 16%,#f8fafb 27%,#4b535b 39%,#12161a 50%,#e9edf0 65%,#656e76 79%,#111418 100%);
   box-shadow:inset 0 1px #fff,inset 0 -4px 8px #000,inset 4px 0 7px #fff4,0 3px 8px #000;
 }
 .f9-frame .f9-lower-shell.left{
@@ -66,7 +75,7 @@
   width:17px;
   top:8%;
   bottom:8%;
-  background:linear-gradient(145deg,#fff 0 10%,#89929a 25%,#252a30 43%,#eef2f4 61%,#596169 78%,#111418 100%);
+  background:linear-gradient(145deg,#fff 0 11%,#858e96 23%,#20252a 39%,#0d1014 48%,#eef2f4 60%,#606971 78%,#111418 100%);
   box-shadow:inset 0 1px #fff9,inset -3px 0 5px #0009;
 }
 .f9-frame .f9-lower-shell:after{
@@ -81,6 +90,7 @@
 }
 .f9-frame .f9-lower-shell.right:after{right:auto;left:15px}
 
+/* Approved openings stay fixed. */
 .f9-frame .f9-main-display{
   left:45px;right:45px;
   border:1px solid #7d858d;
