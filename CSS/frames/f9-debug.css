@@ -44,43 +44,42 @@
 .f9-frame .f9-lower-led.right{right:-5px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 18px #89beff,0 0 6px #fff}
 
-/* Lower chrome housing pass.
-   The shell wraps the OUTER side of each LED while leaving its luminous face exposed. */
+/* Lower chrome housing — open the inner side so more of the fixed LED face is visible.
+   LED position/size/state are unchanged. */
 .f9-frame .f9-lower-shell{
-  width:54px;
-  z-index:4;
+  width:44px;
+  z-index:2;
   border-top:1px solid #f2f5f7;
   border-bottom:1px solid #15191d;
   box-shadow:inset 0 1px #fff,inset 0 -4px 8px #000,inset 4px 0 7px #fff4,0 3px 8px #000;
 }
 .f9-frame .f9-lower-shell.left{
-  left:-16px;
-  clip-path:polygon(5% 5%,72% 0,100% 8%,82% 13%,72% 18%,72% 82%,84% 87%,100% 92%,70% 100%,5% 94%,0 82%,0 17%);
+  left:-14px;
+  clip-path:polygon(0 7%,58% 0,80% 7%,62% 15%,50% 20%,50% 80%,64% 86%,82% 93%,58% 100%,0 93%);
 }
 .f9-frame .f9-lower-shell.right{
-  right:-16px;
-  clip-path:polygon(5% 5%,72% 0,100% 8%,82% 13%,72% 18%,72% 82%,84% 87%,100% 92%,70% 100%,5% 94%,0 82%,0 17%);
+  right:-14px;
+  clip-path:polygon(0 7%,58% 0,80% 7%,62% 15%,50% 20%,50% 80%,64% 86%,82% 93%,58% 100%,0 93%);
 }
 .f9-frame .f9-lower-shell i{
-  left:3px;
-  width:24px;
-  top:7%;
-  bottom:7%;
+  left:2px;
+  width:17px;
+  top:8%;
+  bottom:8%;
   background:linear-gradient(145deg,#fff 0 10%,#89929a 25%,#252a30 43%,#eef2f4 61%,#596169 78%,#111418 100%);
   box-shadow:inset 0 1px #fff9,inset -3px 0 5px #0009;
 }
-/* dark mechanical seam between the LED module and the outer chrome casting */
 .f9-frame .f9-lower-shell:after{
   content:"";
   position:absolute;
-  top:15%;bottom:15%;
-  width:4px;
-  right:8px;
+  top:16%;bottom:16%;
+  width:3px;
+  right:15px;
   border-radius:4px;
   background:linear-gradient(#080a0c,#343a40 45%,#080a0c);
   box-shadow:1px 0 #fff2,-1px 0 3px #000;
 }
-.f9-frame .f9-lower-shell.right:after{right:auto;left:8px}
+.f9-frame .f9-lower-shell.right:after{right:auto;left:15px}
 
 .f9-frame .f9-main-display{
   left:45px;right:45px;
