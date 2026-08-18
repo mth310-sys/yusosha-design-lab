@@ -42,10 +42,10 @@
 .f9-frame .f9-side-mech.left{left:1px}
 .f9-frame .f9-side-mech.right{right:1px}
 
-/* Lower fixed LED bars. */
+/* Lower fixed LED bars: shift complete bars 5px toward cabinet edges. */
 .f9-frame .f9-lower-led{width:30px;top:9px;bottom:9px;z-index:6}
-.f9-frame .f9-lower-led.left{left:20px}
-.f9-frame .f9-lower-led.right{right:20px}
+.f9-frame .f9-lower-led.left{left:15px}
+.f9-frame .f9-lower-led.right{right:15px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 16px #89beff,0 0 5px #fff}
 
 /* Lower exterior rails: segmented molded look while keeping LED visible. */
