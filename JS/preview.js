@@ -35,6 +35,10 @@ function renderLightingControls(frame){
     </section>`;
 }
 
+function renderCustomControls(frame){
+    return typeof frame.customControls==="function"?frame.customControls():"";
+}
+
 function redrawFrameShell(frame){
     const shell=UI.framePreview.querySelector(".frame-shell-layer");
     if(shell){shell.innerHTML=frame.buildSvg();}
@@ -65,20 +69,11 @@ function bindLayerControls(frame){
     document.querySelectorAll("[data-layer-preset]").forEach(button=>{
         button.addEventListener("click",function(){
             switch(button.dataset.layerPreset){
-                case "frame-only":
-                    setLayers(true,false,false);
-                    break;
-                case "parts-only":
-                    setLayers(false,true,false);
-                    break;
-                case "shell-only":
-                    setLayers(false,false,true);
-                    break;
-                case "frame-parts":
-                    setLayers(true,true,false);
-                    break;
-                default:
-                    setLayers(true,true,true);
+                case "frame-only":setLayers(true,false,false);break;
+                case "parts-only":setLayers(false,true,false);break;
+                case "shell-only":setLayers(false,false,true);break;
+                case "frame-parts":setLayers(true,true,false);break;
+                default:setLayers(true,true,true);
             }
         });
     });
@@ -98,6 +93,7 @@ function renderDimensionEditor(frame){
         <p class="frame-description">${frame.description}</p>
         ${renderLayerControls(frame)}
         ${renderLightingControls(frame)}
+        ${renderCustomControls(frame)}
         <dl class="dimension-summary">
             <div><dt>基準キャンバス</dt><dd>${CONFIG.previewWidth} × ${CONFIG.previewHeight}</dd></div>
             <div><dt>フレーム重なり</dt><dd>各辺 5px</dd></div>
@@ -106,6 +102,7 @@ function renderDimensionEditor(frame){
         <p class="dimension-note">実効幅＝予約幅−左重なり−右重なり。<br>実効高さ＝予約高さ−上重なり−下重なり。</p>`;
     bindLayerControls(frame);
     bindLightingControls(frame);
+    if(typeof frame.bindCustomControls==="function"){frame.bindCustomControls();}
 }
 
 function renderFramePreview(){
