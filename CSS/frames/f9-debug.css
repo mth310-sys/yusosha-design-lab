@@ -11,84 +11,36 @@
    Protected: SIDE prism geometry / OPEN-CLOSE class behavior.
 ========================================================= */
 
-/* Upper shell: narrow outer skeleton. Keep the circular matrix + reels clear. */
-.f9-frame .f9-shoulder{
-  width:42px;
-  z-index:1;
-}
-.f9-frame .f9-shoulder.left{
-  left:0;
-  clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%);
-}
-.f9-frame .f9-shoulder.right{
-  right:0;
-  clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%);
-}
+.f9-frame .f9-shoulder{width:42px;z-index:1}
+.f9-frame .f9-shoulder.left{left:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
+.f9-frame .f9-shoulder.right{right:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
 .f9-frame .f9-shoulder i{left:5px;width:16px}
 .f9-frame .f9-shoulder b{left:7px;width:22px}
 
-/* Middle shell: move chrome to the outside of the AURUM display. */
-.f9-frame .f9-mid-shell{
-  width:40px;
-  z-index:1;
-}
-.f9-frame .f9-mid-shell.left{
-  left:0;
-  clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%);
-}
-.f9-frame .f9-mid-shell.right{
-  right:0;
-  clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%);
-}
+.f9-frame .f9-mid-shell{width:40px;z-index:1}
+.f9-frame .f9-mid-shell.left{left:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
+.f9-frame .f9-mid-shell.right{right:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
 .f9-frame .f9-mid-shell i{left:5px;width:15px}
 .f9-frame .f9-mid-shell b{left:4px;width:25px}
 
-/* Waist also stays outside the control deck. */
 .f9-frame .f9-waist{width:35px;z-index:1}
 
 /* Protected SIDE mechanism placement only.
-   Original housing/prism/face/rotation geometry is untouched.
-   Shift each complete mechanism 5px toward its cabinet edge. */
+   Housing/prism/faces/rotation remain unchanged.
+   Previous override was 4px from each edge; move another 3px outward. */
 .f9-frame .f9-side-mech{z-index:5}
-.f9-frame .f9-side-mech.left{left:4px}
-.f9-frame .f9-side-mech.right{right:4px}
+.f9-frame .f9-side-mech.left{left:1px}
+.f9-frame .f9-side-mech.right{right:1px}
 
-/* Lower-panel LEDs are fixed light bars, not rotating mechanisms. */
-.f9-frame .f9-lower-led{
-  width:30px;
-  top:9px;
-  bottom:9px;
-  z-index:6;
-}
+.f9-frame .f9-lower-led{width:30px;top:9px;bottom:9px;z-index:6}
 .f9-frame .f9-lower-led.left{left:20px}
 .f9-frame .f9-lower-led.right{right:20px}
-.f9-frame .f9-lower-led:before{
-  inset:3px;
-  box-shadow:0 0 16px #89beff,0 0 5px #fff;
-}
+.f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 16px #89beff,0 0 5px #fff}
 
-/* Lower chrome becomes an outer rail with an open inner edge. */
-.f9-frame .f9-lower-shell{
-  width:36px;
-  z-index:2;
-}
-.f9-frame .f9-lower-shell.left{
-  clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%);
-}
-.f9-frame .f9-lower-shell.right{
-  clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%);
-}
+.f9-frame .f9-lower-shell{width:36px;z-index:2}
+.f9-frame .f9-lower-shell.left{clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%)}
+.f9-frame .f9-lower-shell.right{clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%)}
 .f9-frame .f9-lower-shell i{left:4px;width:24px}
 
-/* Add thin recessed rims around the two large visual openings.
-   These sit inside the content boundary instead of overlapping it. */
-.f9-frame .f9-main-display{
-  left:45px;
-  right:45px;
-  box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10;
-}
-.f9-frame .f9-lower-frame{
-  left:52px;
-  right:52px;
-  box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10;
-}
+.f9-frame .f9-main-display{left:45px;right:45px;box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10}
+.f9-frame .f9-lower-frame{left:52px;right:52px;box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10}
