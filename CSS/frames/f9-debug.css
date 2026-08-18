@@ -1,4 +1,34 @@
-/* F9 mechanism visual debug override: slow prism transition for eye-check */
+/* F9 protected mechanism / visibility overrides
+   SIDE OPEN/CLOSE remains untouched.
+*/
 .f9-frame .f9-mech-prism{
   transition: transform 5s linear !important;
+}
+
+/* Lower-panel LEDs are fixed light bars, not rotating mechanisms.
+   The chrome lower shell previously covered them almost completely.
+   Cut a lens window into the shell and pull the visible light bars inward.
+*/
+.f9-frame .f9-lower-led{
+  width:30px;
+  top:9px;
+  bottom:9px;
+  z-index:3;
+}
+.f9-frame .f9-lower-led.left{left:20px}
+.f9-frame .f9-lower-led.right{right:20px}
+.f9-frame .f9-lower-led:before{
+  inset:3px;
+  box-shadow:0 0 16px #89beff,0 0 5px #fff;
+}
+
+/* Keep chrome around the LED while opening the inner edge toward the lens. */
+.f9-frame .f9-lower-shell{
+  width:43px;
+}
+.f9-frame .f9-lower-shell.left{
+  clip-path:polygon(0 5%,100% 0,100% 10%,72% 14%,72% 86%,100% 90%,82% 100%,0 94%);
+}
+.f9-frame .f9-lower-shell.right{
+  clip-path:polygon(0 5%,100% 0,100% 10%,72% 14%,72% 86%,100% 90%,82% 100%,0 94%);
 }
