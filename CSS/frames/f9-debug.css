@@ -38,33 +38,49 @@
 .f9-frame .f9-side-mech.left{left:1px}
 .f9-frame .f9-side-mech.right{right:1px}
 
-/* Lower fixed LEDs: keep enlarged size, return 10px inward for visibility. */
+/* LOCKED lower fixed LEDs: tested position and enlarged size remain untouched. */
 .f9-frame .f9-lower-led{width:36px;top:5px;bottom:5px;z-index:6}
 .f9-frame .f9-lower-led.left{left:-5px}
 .f9-frame .f9-lower-led.right{right:-5px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 18px #89beff,0 0 6px #fff}
 
-/* Lower chrome stays in the current outward-following shape for now. */
+/* Lower chrome housing pass.
+   The shell wraps the OUTER side of each LED while leaving its luminous face exposed. */
 .f9-frame .f9-lower-shell{
-  width:48px;
-  z-index:2;
-  border-top:1px solid #eef2f4;
-  border-bottom:1px solid #14181c;
+  width:54px;
+  z-index:4;
+  border-top:1px solid #f2f5f7;
+  border-bottom:1px solid #15191d;
+  box-shadow:inset 0 1px #fff,inset 0 -4px 8px #000,inset 4px 0 7px #fff4,0 3px 8px #000;
 }
 .f9-frame .f9-lower-shell.left{
-  left:-12px;
-  clip-path:polygon(10% 4%,100% 0,88% 10%,72% 15%,72% 84%,92% 90%,78% 97%,22% 100%,0 92%,5% 12%);
+  left:-16px;
+  clip-path:polygon(5% 5%,72% 0,100% 8%,82% 13%,72% 18%,72% 82%,84% 87%,100% 92%,70% 100%,5% 94%,0 82%,0 17%);
 }
 .f9-frame .f9-lower-shell.right{
-  right:-12px;
-  clip-path:polygon(10% 4%,100% 0,88% 10%,72% 15%,72% 84%,92% 90%,78% 97%,22% 100%,0 92%,5% 12%);
+  right:-16px;
+  clip-path:polygon(5% 5%,72% 0,100% 8%,82% 13%,72% 18%,72% 82%,84% 87%,100% 92%,70% 100%,5% 94%,0 82%,0 17%);
 }
 .f9-frame .f9-lower-shell i{
-  left:4px;
-  width:31px;
-  background:linear-gradient(145deg,#fdfefe 0 12%,#737c84 28%,#171b20 47%,#f0f3f5 66%,#4b535b 84%,#111418);
-  box-shadow:inset 0 1px #fff8,inset -3px 0 5px #0008;
+  left:3px;
+  width:24px;
+  top:7%;
+  bottom:7%;
+  background:linear-gradient(145deg,#fff 0 10%,#89929a 25%,#252a30 43%,#eef2f4 61%,#596169 78%,#111418 100%);
+  box-shadow:inset 0 1px #fff9,inset -3px 0 5px #0009;
 }
+/* dark mechanical seam between the LED module and the outer chrome casting */
+.f9-frame .f9-lower-shell:after{
+  content:"";
+  position:absolute;
+  top:15%;bottom:15%;
+  width:4px;
+  right:8px;
+  border-radius:4px;
+  background:linear-gradient(#080a0c,#343a40 45%,#080a0c);
+  box-shadow:1px 0 #fff2,-1px 0 3px #000;
+}
+.f9-frame .f9-lower-shell.right:after{right:auto;left:8px}
 
 .f9-frame .f9-main-display{
   left:45px;right:45px;
