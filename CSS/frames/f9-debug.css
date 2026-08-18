@@ -1,46 +1,67 @@
 /* F9 protected mechanism / visibility overrides
    SIDE OPEN/CLOSE remains untouched.
 */
-.f9-frame .f9-mech-prism{
-  transition: transform 5s linear !important;
-}
+.f9-frame .f9-mech-prism{transition:transform 5s linear !important}
 
 /* =========================================================
-   F9 shell clearance pass
-   Exterior chrome must frame the functional areas, not cover them.
-   Protected: SIDE prism geometry / OPEN-CLOSE class behavior.
+   F9 shell clearance + chrome depth pass
+   Protected: SIDE prism geometry / OPEN-CLOSE behavior / placement.
 ========================================================= */
 
-.f9-frame .f9-shoulder{width:42px;z-index:1}
+/* Common molded-metal treatment: harder highlights, dark seams and depth. */
+.f9-frame .f9-shoulder,
+.f9-frame .f9-mid-shell,
+.f9-frame .f9-waist,
+.f9-frame .f9-lower-shell{
+  background:
+    linear-gradient(90deg,transparent 0 9%,#fff9 10%,transparent 14% 78%,#fff5 82%,transparent 88%),
+    linear-gradient(112deg,#090b0d 0 8%,#59616a 13%,#f8fafc 23%,#9da6af 34%,#252a30 48%,#080a0c 58%,#dbe1e6 72%,#6d757d 83%,#111418 100%);
+  box-shadow:inset 0 1px #fff,inset 0 -3px 8px #000,inset 3px 0 5px #fff3,0 2px 7px #000;
+  filter:drop-shadow(0 2px 1px #000);
+}
+
+/* Upper exterior skeleton — kept clear of circle/reels. */
+.f9-frame .f9-shoulder{width:42px;z-index:1;border-top:1px solid #dfe5e9}
 .f9-frame .f9-shoulder.left{left:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
 .f9-frame .f9-shoulder.right{right:0;clip-path:polygon(8% 0,100% 0,78% 17%,96% 45%,78% 100%,0 94%,0 12%)}
-.f9-frame .f9-shoulder i{left:5px;width:16px}
-.f9-frame .f9-shoulder b{left:7px;width:22px}
+.f9-frame .f9-shoulder i{left:4px;top:9px;width:20px;height:38px;background:linear-gradient(140deg,#fff 0 20%,#535b63 22% 45%,#e9edf0 48% 68%,#171b20 72%)}
+.f9-frame .f9-shoulder b{left:6px;width:25px;bottom:10px;box-shadow:inset 0 1px #ffd86c,0 1px 3px #000}
 
+/* Middle exterior skeleton — display opening remains unobstructed. */
 .f9-frame .f9-mid-shell{width:40px;z-index:1}
 .f9-frame .f9-mid-shell.left{left:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
 .f9-frame .f9-mid-shell.right{right:0;clip-path:polygon(0 7%,88% 0,100% 18%,92% 82%,76% 100%,0 93%)}
-.f9-frame .f9-mid-shell i{left:5px;width:15px}
-.f9-frame .f9-mid-shell b{left:4px;width:25px}
+.f9-frame .f9-mid-shell i{left:4px;width:18px;background:linear-gradient(145deg,#fff,#525a62 40%,#f3f5f6 62%,#20252a)}
+.f9-frame .f9-mid-shell b{left:3px;width:27px;box-shadow:inset 0 1px #fff5,0 1px 3px #000}
 
+/* Control-deck side knuckles. */
 .f9-frame .f9-waist{width:35px;z-index:1}
 
-/* Protected SIDE mechanism placement only.
-   Housing/prism/faces/rotation remain unchanged.
-   Previous override was 4px from each edge; move another 3px outward. */
+/* LOCKED SIDE mechanism: position and mechanics remain fixed. */
 .f9-frame .f9-side-mech{z-index:5}
 .f9-frame .f9-side-mech.left{left:1px}
 .f9-frame .f9-side-mech.right{right:1px}
 
+/* Lower fixed LED bars. */
 .f9-frame .f9-lower-led{width:30px;top:9px;bottom:9px;z-index:6}
 .f9-frame .f9-lower-led.left{left:20px}
 .f9-frame .f9-lower-led.right{right:20px}
 .f9-frame .f9-lower-led:before{inset:3px;box-shadow:0 0 16px #89beff,0 0 5px #fff}
 
+/* Lower exterior rails: segmented molded look while keeping LED visible. */
 .f9-frame .f9-lower-shell{width:36px;z-index:2}
 .f9-frame .f9-lower-shell.left{clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%)}
 .f9-frame .f9-lower-shell.right{clip-path:polygon(0 5%,100% 0,100% 8%,65% 13%,65% 87%,100% 91%,78% 100%,0 94%)}
-.f9-frame .f9-lower-shell i{left:4px;width:24px}
+.f9-frame .f9-lower-shell i{left:3px;width:26px;background:linear-gradient(145deg,#fdfefe,#656d75 32%,#15191d 48%,#e7ebee 67%,#343a40);box-shadow:inset 0 1px #fff8}
 
-.f9-frame .f9-main-display{left:45px;right:45px;box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10}
-.f9-frame .f9-lower-frame{left:52px;right:52px;box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10}
+/* Recessed bezels: thin, crisp boundaries instead of overlapping slabs. */
+.f9-frame .f9-main-display{
+  left:45px;right:45px;
+  border:1px solid #7d858d;
+  box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10,0 0 0 3px #242a30;
+}
+.f9-frame .f9-lower-frame{
+  left:52px;right:52px;
+  border:1px solid #818991;
+  box-shadow:0 7px 14px #000,inset 0 1px #fff,0 0 0 2px #0b0d10,0 0 0 3px #242a30;
+}
