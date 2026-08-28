@@ -10,6 +10,7 @@
 .cabinet:before,.cabinet:after{content:"";position:absolute;top:28px;bottom:28px;width:6px;border-radius:4px;pointer-events:none;background:linear-gradient(90deg,#070305,#4a263c 48%,#0d060b);box-shadow:0 0 7px #000}
 .cabinet:before{left:3px}.cabinet:after{right:3px;transform:scaleX(-1)}
 .top-crown{
+  position:relative;
   overflow:hidden;
   background:
     radial-gradient(ellipse at 50% 8%,rgba(255,255,255,.10),transparent 28%),
