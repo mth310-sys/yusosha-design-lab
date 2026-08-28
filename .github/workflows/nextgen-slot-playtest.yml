@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'research/nextgen_pachislot_expression_lab/**'
+      - 'research/yuyu_normal_type_lab/**'
       - 'playtest/**'
       - 'playwright.config.js'
       - '.github/workflows/nextgen-slot-playtest.yml'
@@ -28,13 +29,23 @@ jobs:
         run: |
           python3 -m http.server 4173 > /tmp/design-lab-playtest-server.log 2>&1 &
           sleep 2
-      - name: Run iPhone 12 full 1G playtest
+      - name: Run generic pachislot baseline iPhone playtest
         run: npx playwright test playtest/nextgen-slot.spec.js --project=webkit-iphone12 --reporter=line
-      - name: Upload visual and interaction evidence
+      - name: Run YUYU normal-type iPhone playtest
+        run: npx playwright test playtest/yuyu-normal.spec.js --project=webkit-iphone12 --reporter=line
+      - name: Upload generic visual and interaction evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: nextgen-slot-playtest-evidence
           path: playtest/evidence/**
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload YUYU visual and interaction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yuyu-normal-playtest-evidence
+          path: playtest/evidence-yuyu/**
           if-no-files-found: warn
           retention-days: 7
