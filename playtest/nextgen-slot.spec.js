@@ -5,6 +5,9 @@ const evidenceDir = path.join(__dirname, 'evidence');
 const targetPath = '/research/nextgen_pachislot_expression_lab/index.html';
 async function shot(page,name){ await page.screenshot({path:path.join(evidenceDir,`${name}.png`),fullPage:true}); }
 async function audioState(page,label){return {label,state:await page.evaluate(()=>window.__NEXTGEN_AUDIO_STATE__?.()||null)};}
+async function waitEvent(page,text){
+ await expect.poll(async()=>page.locator('#eventLog').textContent(),{timeout:5000}).toContain(text);
+}
 
 test('PHASER BASELINE v0.4 full 1G iPhone interaction', async ({page})=>{
  fs.mkdirSync(evidenceDir,{recursive:true});
@@ -16,10 +19,18 @@ test('PHASER BASELINE v0.4 full 1G iPhone interaction', async ({page})=>{
  await expect(page.locator('.lab-head small')).toContainText('PHASER BASELINE v0.4.0');
  await expect(page.locator('#phaserResearchModes')).toBeHidden();
  await expect.poll(async()=>page.evaluate(()=>typeof window.__PHASER_BASELINE_STATE__)).toBe('function');
+ await expect.poll(async()=>page.evaluate(()=>window.__PHASER_BASELINE_STATE__?.().renderer??null),{timeout:5000}).toBe(2);
+ await waitEvent(page,'SCENE  READY');
  await shot(page,'00-idle');
  await page.locator('#bet').tap(); await expect(page.locator('#status')).toContainText('START'); audioStates.push(await audioState(page,'BET')); await shot(page,'01-bet');
  await page.locator('#start').tap(); await expect(page.locator('#status')).toContainText(/REELS/); await page.waitForTimeout(260); audioStates.push(await audioState(page,'START')); await shot(page,'02-cruise');
- for(let i=0;i<3;i++){const stop=page.locator('.stop').nth(i);await expect(stop).toBeEnabled();await stop.tap();await page.waitForTimeout(330);audioStates.push(await audioState(page,`STOP${i+1}`));await shot(page,`0${i+3}-stop${i+1}`);}
+ for(let i=0;i<3;i++){
+   const stop=page.locator('.stop').nth(i);
+   await expect(stop).toBeEnabled(); await stop.tap();
+   await waitEvent(page,`LOCK_${i+1}`);
+   audioStates.push(await audioState(page,`STOP${i+1}_LOCKED`));
+   await shot(page,`0${i+3}-stop${i+1}-locked`);
+ }
  await expect(page.locator('#machine')).toHaveAttribute('data-phase',/judge|bonus|idle/,{timeout:5000}); await page.waitForTimeout(750); audioStates.push(await audioState(page,'BONUS_WINDOW')); await shot(page,'06-judgement-bonus');
  const report=await page.evaluate(()=>({version:document.querySelector('.lab-head small')?.textContent||'',status:document.querySelector('#status')?.textContent||'',phase:document.querySelector('#machine')?.dataset.phase||'',fps:document.querySelector('#fps')?.textContent||'',eventLog:document.querySelector('#eventLog')?.textContent||'',baseline:window.__PHASER_BASELINE_STATE__?.()||null,research:window.__PHASER_RESEARCH_STATE__?.()||null}));
  fs.writeFileSync(path.join(evidenceDir,'nextgen-slot-report.json'),JSON.stringify({target:url,report,audioStates,consoleMessages,pageErrors},null,2));
