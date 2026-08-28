@@ -27,7 +27,7 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
 
   await page.goto(url, { waitUntil: 'networkidle' });
   await expect(page.locator('#machine')).toBeVisible();
-  await expect(page.locator('.lab-head small')).toContainText('REEL v0.2.1');
+  await expect(page.locator('.lab-head small')).toContainText('REEL v0.2.2');
   await expect.poll(async () => page.evaluate(() => typeof window.__NEXTGEN_AUDIO_STATE__)).toBe('function');
   await shot(page, '00-idle');
 
@@ -80,6 +80,7 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
     expect(checkpoint.state?.contextState, `${checkpoint.label}: AudioContext running`).toBe('running');
   }
 
+  expect(report.eventLog).toContain('REEL_FRONT_OCCLUSION_V0_2_2');
   expect(report.eventLog).toContain('STOP3_LOCK');
   expect(report.eventLog).toContain('BONUS');
   expect(pageErrors, `page errors: ${pageErrors.join('\n')}`).toEqual([]);
