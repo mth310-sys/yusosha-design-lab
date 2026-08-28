@@ -13,7 +13,6 @@
     const drawSymbol=(g,sym,x,y)=>{
       g.clear();g.setPosition(x,y).setVisible(true).setScale(1);
       if(sym.k==='seven'){
-        // Original YUYU seven: broad red cap + diagonal + gold inner accent.
         g.fillStyle(0xc51f32,1);g.fillRoundedRect(-18,-12,36,7,3);g.fillTriangle(16,-8,5,15,-4,15);g.fillTriangle(10,-7,2,15,-8,15);
         g.lineStyle(2,0xf0c66c,.92);g.beginPath();g.moveTo(-13,-8);g.lineTo(12,-8);g.lineTo(1,12);g.strokePath();
         g.fillStyle(0x4c1730,1);g.fillCircle(-14,11,4);g.fillStyle(0xf5d77e,1);g.fillCircle(-14,11,1.6);
@@ -28,19 +27,16 @@
       }else if(sym.k==='bar'){
         g.fillStyle(0x211d25,1);g.fillRoundedRect(-22,-10,44,20,4);g.lineStyle(2,0xc7a35c,.95);g.strokeRoundedRect(-20,-8,40,16,3);g.fillStyle(0x6b2855,1);g.fillTriangle(-17,5,-10,-5,-3,5);g.fillTriangle(3,5,10,-5,17,5);
       }else if(sym.k==='leaf'){
-        // YU medallion/leaf hybrid, not a fruit-machine copy.
         g.fillStyle(0x2f9b61,1);g.fillEllipse(0,0,22,27);g.lineStyle(2,0x175d3a,.9);g.strokeEllipse(0,0,22,27);g.lineStyle(2,0xd7f0df,.92);g.beginPath();g.moveTo(-6,-5);g.lineTo(0,5);g.lineTo(7,-6);g.strokePath();g.fillStyle(0xe8c96e,1);g.fillCircle(0,10,2.2);
       }
     };
 
     sc.reels.forEach(r=>{
-      // Keep the strip itself visually continuous. Individual cell plates are no longer visible.
       r.cells.forEach(c=>{
         c.plate.setVisible(false).setAlpha(0);
         c.label.setText('');
         c.sub.setFontSize(4.5).setAlpha(.64);
       });
-      // Subtle physical cues at the strip edges; fixed and non-animated.
       r.filmBack.setFillStyle(0xfffbef,1).setSize(96,166);
       r.filmSheen.setAlpha(.018).setSize(10,164);
       r.rollEdgeL=sc.add.rectangle(r.x-46,88,4,164,0x9c8d79,.10).setDepth(8);
@@ -60,8 +56,9 @@
         const sx=1-.025*n*n;
         const edge=Math.min(1,Math.max(.58,1-Math.abs(y-88)/165));
         const motion=r.spinning?.94:1;
-        c.plate.setVisible(false).setAlpha(0);
-        c.label.setVisible(false).setText('');
+        c.plate.y=y;c.plate.setVisible(false).setAlpha(0);
+        // Keep the hidden legacy label position updated because motion QA telemetry probes it.
+        c.label.y=y-2;c.label.setVisible(false).setText('');
         c.sub.y=y+12;c.sub.setText(sym.k==='seven'?'YUYU':sym.k==='bar'?'YUYU':sym.k==='leaf'?'YU':'').setColor(sym.k==='bar'?'#a98b52':sym.c).setVisible(visible).setAlpha(edge*.64*motion).setScale(sx,sy);
         drawSymbol(c.icon,sym,r.x,y-1);
         c.icon.setVisible(visible).setAlpha(edge*motion).setScale(sx,sy);
