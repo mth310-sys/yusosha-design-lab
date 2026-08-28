@@ -24,7 +24,7 @@
     const prior=window.__YUYU_STATE__;
     window.__YUYU_STATE__=()=>{
       const x=prior();
-      return {...x,version:'0.4.1',phaser:{...x.phaser,glassSweep:false,frontPlate:'STATIC_CLEAR_ACRYLIC',frontPlateDynamic:false,frontPlateOpacity:.008},acrylic:{dynamic:false,sweep:false,faceAlpha:s.acrylicFace?.alpha??null,edges:[s.acrylicTop?.alpha??null,s.acrylicBottom?.alpha??null,s.acrylicLeft?.alpha??null,s.acrylicRight?.alpha??null]}};
+      return {...x,version:'0.4.1',phaser:{...x.phaser,glassSweep:false,frontPlate:'STATIC_CLEAR_ACRYLIC',frontPlateDynamic:false,frontPlateOpacity:.008},acrylic:{dynamic:false,sweep:false,faceObjectAlpha:s.acrylicFace?.alpha??null,faceFillAlpha:s.acrylicFace?.fillAlpha??null,edgeFillAlpha:[s.acrylicTop?.fillAlpha??null,s.acrylicBottom?.fillAlpha??null,s.acrylicLeft?.fillAlpha??null,s.acrylicRight?.fillAlpha??null]}};
     };
   };
   attach();
