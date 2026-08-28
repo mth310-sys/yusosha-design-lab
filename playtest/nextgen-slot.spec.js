@@ -27,8 +27,10 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
 
   await page.goto(url, { waitUntil: 'networkidle' });
   await expect(page.locator('#machine')).toBeVisible();
-  await expect(page.locator('.lab-head small')).toContainText('REEL v0.2.2');
+  await expect(page.locator('.lab-head small')).toContainText('PHASER LAB v0.3.0');
+  await expect(page.locator('#phaserResearchModes')).toBeVisible();
   await expect.poll(async () => page.evaluate(() => typeof window.__NEXTGEN_AUDIO_STATE__)).toBe('function');
+  await expect.poll(async () => page.evaluate(() => typeof window.__PHASER_RESEARCH_STATE__)).toBe('function');
   await shot(page, '00-idle');
 
   await page.locator('#bet').tap();
@@ -62,7 +64,8 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
     phase: document.querySelector('#machine')?.dataset.phase || '',
     fps: document.querySelector('#fps')?.textContent || '',
     credit: document.querySelector('#credit')?.textContent || '',
-    eventLog: document.querySelector('#eventLog')?.textContent || ''
+    eventLog: document.querySelector('#eventLog')?.textContent || '',
+    phaserResearch: window.__PHASER_RESEARCH_STATE__?.() || null
   }));
 
   fs.writeFileSync(path.join(evidenceDir, 'nextgen-slot-report.json'), JSON.stringify({
@@ -73,7 +76,14 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
     pageErrors
   }, null, 2));
 
-  expect(report.version).toContain('REEL v0.2.2');
+  expect(report.version).toContain('PHASER LAB v0.3.0');
+  expect(report.phaserResearch?.mode).toBe('COMBO');
+  expect(report.phaserResearch?.triggerCount).toBeGreaterThanOrEqual(1);
+  expect(report.phaserResearch?.cameraEvents).toBeGreaterThanOrEqual(1);
+  expect(report.phaserResearch?.tweenEvents).toBeGreaterThanOrEqual(1);
+  expect(report.phaserResearch?.blendEvents).toBeGreaterThanOrEqual(1);
+  expect(String(report.phaserResearch?.version || '')).toContain('4.2.1');
+
   for (const checkpoint of audioStates) {
     expect(checkpoint.state?.enabled, `${checkpoint.label}: audio enabled`).toBe(true);
     expect(checkpoint.state?.hasContext, `${checkpoint.label}: AudioContext exists`).toBe(true);
@@ -83,6 +93,7 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
 
   expect(report.eventLog).toContain('STOP3_LOCK');
   expect(report.eventLog).toContain('BONUS');
+  expect(report.eventLog).toContain('PHASER_FX');
   expect(consoleMessages.filter(line => line.includes('setMask') && line.includes('not supported in WebGL'))).toEqual([]);
   expect(pageErrors, `page errors: ${pageErrors.join('\n')}`).toEqual([]);
 });
