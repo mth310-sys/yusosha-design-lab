@@ -21,7 +21,8 @@ test('PHASER BASELINE v0.4 full 1G iPhone interaction', async ({page})=>{
  await expect.poll(async()=>page.evaluate(()=>typeof window.__PHASER_BASELINE_STATE__)).toBe('function');
  await expect.poll(async()=>page.evaluate(()=>window.__PHASER_BASELINE_STATE__?.().renderer??null),{timeout:5000}).toBe(2);
  await waitEvent(page,'SCENE  READY');
- await shot(page,'00-idle');
+ await page.waitForTimeout(300);
+ await shot(page,'00-idle-rendered');
  await page.locator('#bet').tap(); await expect(page.locator('#status')).toContainText('START'); audioStates.push(await audioState(page,'BET')); await shot(page,'01-bet');
  await page.locator('#start').tap(); await expect(page.locator('#status')).toContainText(/REELS/); await page.waitForTimeout(260); audioStates.push(await audioState(page,'START')); await shot(page,'02-cruise');
  for(let i=0;i<3;i++){
