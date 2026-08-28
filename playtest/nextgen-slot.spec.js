@@ -73,6 +73,7 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
     pageErrors
   }, null, 2));
 
+  expect(report.version).toContain('REEL v0.2.2');
   for (const checkpoint of audioStates) {
     expect(checkpoint.state?.enabled, `${checkpoint.label}: audio enabled`).toBe(true);
     expect(checkpoint.state?.hasContext, `${checkpoint.label}: AudioContext exists`).toBe(true);
@@ -80,8 +81,8 @@ test('NEXT-GEN SLOT LAB full 1G iPhone interaction', async ({ page }) => {
     expect(checkpoint.state?.contextState, `${checkpoint.label}: AudioContext running`).toBe('running');
   }
 
-  expect(report.eventLog).toContain('REEL_FRONT_OCCLUSION_V0_2_2');
   expect(report.eventLog).toContain('STOP3_LOCK');
   expect(report.eventLog).toContain('BONUS');
+  expect(consoleMessages.filter(line => line.includes('setMask') && line.includes('not supported in WebGL'))).toEqual([]);
   expect(pageErrors, `page errors: ${pageErrors.join('\n')}`).toEqual([]);
 });
