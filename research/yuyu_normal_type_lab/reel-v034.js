@@ -1,8 +1,7 @@
-/* YUYU v0.3.5 — visible reel motion fix.
-   Phaser Scene update was captured before the late v0.3.4 prototype patch.
-   Drive reel motion from a scene 'update' event installed after boot instead. */
+/* YUYU v0.3.6 — visible reel motion driver.
+   Use Phaser Scene UPDATE event constant and guard against duplicate attachment. */
 (() => {
-  state.version='0.3.5';
+  state.version='0.3.6';
   state.fx.reelModel='CONTINUOUS_CONVEYOR';
   state.fx.visualTravel=0;state.fx.spinFrames=0;state.fx.spinTravel=0;
   const SPACING=36,LOOP=252,mod=(n,m)=>((n%m)+m)%m;
@@ -33,9 +32,9 @@
     scene.reels.forEach(r=>{if(!r.spinning)return;if(r.braking)r.speed=Math.max(175,r.speed*(1-Math.min(.82,dt*6.4)));const d=r.speed*dt;r.travel=(r.travel||0)+d;r.offset=mod(r.travel,432);state.fx.spinTravel+=d;state.fx.visualTravel+=d;moving++;scene.paint(r)});
     if(moving){state.fx.spinFrames++;if(state.fx.spinFrames===2)log('REEL_ROTATION','VISIBLE_ACTIVE')}
   }
-  function attachDriver(){const scene=state.scene;if(!scene){requestAnimationFrame(attachDriver);return}scene.events.on('update',drive);log('REEL_DRIVER','SCENE_UPDATE_ATTACHED')}
+  function attachDriver(){const scene=state.scene;if(!scene){requestAnimationFrame(attachDriver);return}if(scene.__yuyuReelDriverAttached)return;scene.__yuyuReelDriverAttached=true;const eventName=Phaser.Scenes?.Events?.UPDATE||'update';scene.events.on(eventName,drive);log('REEL_DRIVER',`ATTACHED:${eventName}`)}
   attachDriver();
 
-  const priorState=window.__YUYU_STATE__;window.__YUYU_STATE__=()=>{const s=priorState?priorState():{};return {...s,version:'0.3.5',phaser:{...(s.phaser||{}),reelModel:'CONTINUOUS_CONVEYOR',spinFrames:state.fx.spinFrames,spinTravel:state.fx.spinTravel,visualTravel:state.fx.visualTravel},reels:state.scene?.reels.map((r,i)=>({index:i+1,offset:r.offset||0,travel:r.travel||0,speed:r.speed||0,spinning:!!r.spinning,braking:!!r.braking,locked:!!r.locked,latticeError:r.locked?Math.abs((r.travel||0)-Math.round((r.travel||0)/36)*36):null,sampleY:r.cells?.[0]?.label?.y??null}))||[]}};
-  const sub=document.querySelector('header small');if(sub)sub.textContent='YUYU v0.3.5 · VISIBLE REEL FIX';const note=document.querySelector('.note');if(note)note.textContent='遊遊 v0.3.5 — Scene updateイベントへ回転ドライバを接続し、Phaser図柄の実座標を毎フレーム更新。';log('PATCH','REEL_VISIBLE_FIX_V0_3_5');
+  const priorState=window.__YUYU_STATE__;window.__YUYU_STATE__=()=>{const s=priorState?priorState():{};return {...s,version:'0.3.6',phaser:{...(s.phaser||{}),reelModel:'CONTINUOUS_CONVEYOR',spinFrames:state.fx.spinFrames,spinTravel:state.fx.spinTravel,visualTravel:state.fx.visualTravel},reels:state.scene?.reels.map((r,i)=>({index:i+1,offset:r.offset||0,travel:r.travel||0,speed:r.speed||0,spinning:!!r.spinning,braking:!!r.braking,locked:!!r.locked,latticeError:r.locked?Math.abs((r.travel||0)-Math.round((r.travel||0)/36)*36):null,sampleY:r.cells?.[0]?.label?.y??null}))||[]}};
+  const sub=document.querySelector('header small');if(sub)sub.textContent='YUYU v0.3.6 · REEL DRIVER FIX';const note=document.querySelector('.note');if(note)note.textContent='遊遊 v0.3.6 — Phaser Scene UPDATEイベントへ回転ドライバを接続し、図柄座標の連続移動を検査。';log('PATCH','REEL_DRIVER_FIX_V0_3_6');
 })();
