@@ -1,5 +1,6 @@
 /* Next-Gen Pachislot Expression Lab v0.2.1
-   Reel window/cylinder correction patch. Loaded after reel-v02.js. */
+   Reel window/cylinder correction patch. Loaded after reel-v02.js.
+   v0.2.2+ uses physical front occlusion, so unsupported WebGL GeometryMask calls are intentionally absent. */
 (() => {
   const SYMBOLS = [
     ['BAR',0x15171b,'#eceef1'], ['7',0x9b1020,'#f6e7e9'], ['◆',0x20242a,'#f1f2f4'],
@@ -30,30 +31,26 @@
       const well=this.add.rectangle(x,y,94,120,0xcfd4d9,1)
         .setStrokeStyle(1,0x59616d,.65).setDepth(23);
 
-      const maskShape=this.make.graphics({x:0,y:0,add:false});
-      maskShape.fillStyle(0xffffff).fillRoundedRect(x-WINDOW_W/2,y-WINDOW_H/2,WINDOW_W,WINDOW_H,2);
-      const mask=maskShape.createGeometryMask();
-
       const cells=[];
       for(let j=0;j<7;j++){
-        const plate=this.add.rectangle(x,y+(j-3)*SPACING,88,34,0xf2f3f5,1).setDepth(24).setMask(mask);
+        const plate=this.add.rectangle(x,y+(j-3)*SPACING,88,34,0xf2f3f5,1).setDepth(24);
         const label=this.add.text(x,y+(j-3)*SPACING,'',{
           fontFamily:'Arial Black,Arial,sans-serif',fontStyle:'bold',fontSize:'21px',color:'#17191d'
-        }).setOrigin(.5).setDepth(25).setMask(mask);
+        }).setOrigin(.5).setDepth(25);
         cells.push({plate,label});
       }
 
-      const sideL=this.add.rectangle(x-42,y,12,WINDOW_H,0x020304,.24).setDepth(29).setMask(mask);
-      const sideR=this.add.rectangle(x+42,y,12,WINDOW_H,0x020304,.24).setDepth(29).setMask(mask);
-      const topCurve=this.add.rectangle(x,y-49,WINDOW_W,18,0x020304,.42).setDepth(30).setMask(mask);
-      const bottomCurve=this.add.rectangle(x,y+49,WINDOW_W,18,0x020304,.48).setDepth(30).setMask(mask);
+      const sideL=this.add.rectangle(x-42,y,12,WINDOW_H,0x020304,.24).setDepth(29);
+      const sideR=this.add.rectangle(x+42,y,12,WINDOW_H,0x020304,.24).setDepth(29);
+      const topCurve=this.add.rectangle(x,y-49,WINDOW_W,18,0x020304,.42).setDepth(30);
+      const bottomCurve=this.add.rectangle(x,y+49,WINDOW_W,18,0x020304,.48).setDepth(30);
       const topLip=this.add.rectangle(x,y-59,94,8,0x05070a,.95).setDepth(35);
       const bottomLip=this.add.rectangle(x,y+59,94,8,0x05070a,.98).setDepth(35);
-      const spec=this.add.rectangle(x-25,y-3,9,102,0xffffff,.045).setAngle(3).setDepth(31).setMask(mask);
-      const centerLight=this.add.rectangle(x,y,80,31,0xffffff,.035).setDepth(28).setMask(mask);
+      const spec=this.add.rectangle(x-25,y-3,9,102,0xffffff,.045).setAngle(3).setDepth(31);
+      const centerLight=this.add.rectangle(x,y,80,31,0xffffff,.035).setDepth(28);
 
       this.reels.push({
-        x,y,well,mask,cells,sideL,sideR,topCurve,bottomCurve,topLip,bottomLip,spec,centerLight,
+        x,y,well,cells,sideL,sideR,topCurve,bottomCurve,topLip,bottomLip,spec,centerLight,
         offset:0,speed:0,targetSpeed:0,mode:'idle',baseIndex:(i*3+1)%SYMBOLS.length,onSettled:null
       });
     }
@@ -102,10 +99,8 @@
     });
   };
 
-  // v0.2 used cell.group for motion attenuation. v0.2.1 deliberately
-  // removed those Containers so WebKit masking is applied directly to each
-  // plate/text object. Keep the v0.2 motion state machine, but target the
-  // direct children so update() cannot throw and freeze the reels in spin.
+  // v0.2 used cell.group for motion attenuation. v0.2.1 targets direct
+  // plate/text children so update() cannot throw and freeze the reels in spin.
   NextGenScene.prototype.update = function(time,delta){
     const dt=Math.min(delta,34);
     this.reels.forEach(r=>{
