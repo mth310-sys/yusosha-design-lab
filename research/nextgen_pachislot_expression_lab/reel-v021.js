@@ -102,6 +102,36 @@
     });
   };
 
+  // v0.2 used cell.group for motion attenuation. v0.2.1 deliberately
+  // removed those Containers so WebKit masking is applied directly to each
+  // plate/text object. Keep the v0.2 motion state machine, but target the
+  // direct children so update() cannot throw and freeze the reels in spin.
+  NextGenScene.prototype.update = function(time,delta){
+    const dt=Math.min(delta,34);
+    this.reels.forEach(r=>{
+      if(r.mode==='idle'||r.mode==='locked'||r.mode==='settling')return;
+      if(r.mode==='accelerating'){
+        const p=Phaser.Math.Clamp((time-r.accelStart)/r.accelDuration,0,1);
+        r.speed=r.targetSpeed*(1-Math.pow(1-p,3));
+        if(p>=1)r.mode='cruise';
+      }else if(r.mode==='stopping'){
+        const p=Phaser.Math.Clamp((time-r.stopStart)/r.stopDuration,0,1);
+        r.speed=r.stopFromSpeed*Math.pow(1-p,3);
+        if(p>=1){this.settleReelV02(r);return;}
+      }
+      r.offset+=r.speed*dt;
+      this.paintReelV02(r);
+      const motion=Phaser.Math.Clamp(r.speed/1.62,0,1);
+      if(motion>0){
+        r.cells.forEach(c=>{
+          const attenuate=1-.16*motion;
+          c.plate.setAlpha(c.plate.alpha*attenuate);
+          c.label.setAlpha(c.label.alpha*attenuate);
+        });
+      }
+    });
+  };
+
   const baseApplyMode=NextGenScene.prototype.applyMode;
   NextGenScene.prototype.applyMode=function(mode){
     baseApplyMode.call(this,mode);
