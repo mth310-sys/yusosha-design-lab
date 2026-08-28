@@ -41,7 +41,10 @@
   }
 
   const baseStop=NextGenScene.prototype.stopReel;
-  NextGenScene.prototype.stopReel=function(i){ baseStop.call(this,i); if(state.mode==='FULL') stopBurst(this,i); };
+  NextGenScene.prototype.stopReel=function(i,onSettled){
+    baseStop.call(this,i,onSettled);
+    if(state.mode==='FULL') stopBurst(this,i);
+  };
 
   const baseHit=NextGenScene.prototype.hitRelease;
   NextGenScene.prototype.hitRelease=function(){ baseHit.call(this); if(state.mode==='FULL') hitBurst(this); };
@@ -67,17 +70,17 @@
     }
   };
 
-  // Baseline UI: force-hide comparison controls even when component CSS sets display:flex.
-  const forceHide = (el) => {
-    if(!el) return;
-    el.hidden = true;
-    el.style.setProperty('display','none','important');
-    el.setAttribute('aria-hidden','true');
-  };
-  forceHide(document.querySelector('#phaserResearchModes'));
-  forceHide(document.querySelector('#basicMode'));
-  forceHide(document.querySelector('#fullMode'));
-
+  // v0.4 is a finished baseline, not a comparison UI. Keep v0.3 instrumentation loaded
+  // underneath for regression data, but hide its research switches from the player.
+  const researchControls=document.querySelector('#phaserResearchModes');
+  if(researchControls){
+    researchControls.hidden=true;
+    researchControls.style.setProperty('display','none','important');
+  }
+  const basic=document.querySelector('#basicMode');
+  const full=document.querySelector('#fullMode');
+  if(basic) basic.hidden=true;
+  if(full) full.hidden=true;
   const modeLabel=document.querySelector('#modeLabel');
   if(modeLabel) modeLabel.textContent='PHASER';
   const note=document.querySelector('.note');
