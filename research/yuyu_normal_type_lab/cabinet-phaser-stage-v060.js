@@ -3,7 +3,7 @@
    while the stable reel core remains isolated in the original scene. No moving glass sweep is introduced. */
 (()=>{
  const attach=()=>{
-  if(!window.Phaser||!window.state?.scene||state.version!=='0.5.3'){requestAnimationFrame(attach);return}
+  if(!window.Phaser||typeof state==='undefined'||!state.scene||state.version!=='0.5.3'){requestAnimationFrame(attach);return}
   const telemetry={
    mode:'PHASER_CABINET_COMPOSITOR_V060',enabled:false,separatePhaserStage:false,
    technologyStack:['Mesh2D','ADD_BLEND','GRAPHICS_MATERIAL_PLANES','DOM_GEOMETRY_BINDING','BONUS_TWEEN'],
@@ -24,15 +24,11 @@
       const ADD=Phaser.BlendModes.ADD;
       const top=rel(document.querySelector('.top-crown')),reel=rel(document.querySelector('.reel-bezel')),meter=rel(document.querySelector('.meter')),deck=rel(document.querySelector('.deck')),lower=rel(document.querySelector('.lower'));
       const lamps=[...document.querySelectorAll('.flower')].map(rel),stopRects=[...document.querySelectorAll('.stop')].map(rel),deckButtons=[...document.querySelectorAll('.deck>button')].map(rel);
-
-      // Cabinet silhouette plane: fixed highlights and deep edge occlusion.
       const g=this.add.graphics().setDepth(3);
       g.lineStyle(1,0xffe8f5,.18);g.strokeRoundedRect(4,4,w-8,h-8,26);
       g.lineStyle(4,0x160b12,.88);g.strokeRoundedRect(9,9,w-18,h-18,22);
       g.lineStyle(1,0xb889a8,.12);g.strokeRoundedRect(13,13,w-26,h-26,19);
       telemetry.materialPlanes+=3;
-
-      // Mesh2D side rails: a genuinely Phaser-rendered curved metallic surface instead of CSS-only rails.
       const key='yuyu_v060_rail_metal';
       if(!this.textures.exists(key)){
        const tex=this.textures.createCanvas(key,48,256),ctx=tex.context;
@@ -48,8 +44,6 @@
       const rails=[this.add.mesh2d(12,h/2,key,[...verts],[...idx],false),this.add.mesh2d(w-12,h/2,key,[...verts],[...idx],false)];
       rails.forEach((m,i)=>{m.setDepth(4).setAlpha(.92);if(i===1)m.setScale(-1,1);m.buildOrderedIndices(2,true).setUseOrderedIndices(true)});
       telemetry.meshRails=rails.length;telemetry.orderedIndices=rails.every(m=>m.useOrderedIndices===true);
-
-      // Sculpted crown and reel aperture: multiple fixed material planes, rendered above the DOM surfaces.
       const material=this.add.graphics().setDepth(5);
       material.lineStyle(2,0xffe5f4,.14);material.strokeRoundedRect(top.x-top.w/2+7,top.y-top.h/2+7,top.w-14,top.h-14,18);
       material.lineStyle(3,0x090406,.72);material.strokeRoundedRect(reel.x-reel.w/2+8,reel.y-reel.h/2+8,reel.w-16,reel.h-16,8);
@@ -58,8 +52,6 @@
       material.lineStyle(1,0xf7edf2,.12);material.strokeRoundedRect(deck.x-deck.w/2+4,deck.y-deck.h/2+4,deck.w-8,deck.h-8,9);
       material.lineStyle(1,0xffdbef,.13);material.strokeRoundedRect(lower.x-lower.w/2+8,lower.y-lower.h/2+8,lower.w-16,lower.h-16,7);
       telemetry.materialPlanes+=6;
-
-      // Lens optics: fixed concentric glass layers. Only the actual bonus state animates them.
       lamps.forEach((r,i)=>{
        const shadow=this.add.circle(r.x,r.y,r.w*.52,0x16050f,.24).setDepth(6);
        const rim=this.add.circle(r.x,r.y,r.w*.47,0xffffff,0).setStrokeStyle(2,0xffd8ed,.16).setDepth(7).setBlendMode(ADD);
@@ -67,17 +59,12 @@
        const halo=this.add.circle(r.x,r.y,r.w*.46,0xff55b7,.018).setDepth(6).setBlendMode(ADD);
        this.lampLayers.push({shadow,rim,lens,halo,index:i});telemetry.lampOptics+=4;
       });
-
-      // Control hardware lives in the Phaser stage too: machined rings aligned from live DOM geometry.
-      stopRects.forEach(r=>{const ring=this.add.circle(r.x,r.y,Math.min(r.w,r.h)*.51,0xffffff,0).setStrokeStyle(2,0xc9aebd,.24).setDepth(8);const inner=this.add.circle(r.x,r.y,Math.min(r.w,r.h)*.42,0xffffff,0).setStrokeStyle(1,0xffffff,.12).setDepth(8).setBlendMode(ADD);telemetry.controlRings+=2;});
+      stopRects.forEach(r=>{this.add.circle(r.x,r.y,Math.min(r.w,r.h)*.51,0xffffff,0).setStrokeStyle(2,0xc9aebd,.24).setDepth(8);this.add.circle(r.x,r.y,Math.min(r.w,r.h)*.42,0xffffff,0).setStrokeStyle(1,0xffffff,.12).setDepth(8).setBlendMode(ADD);telemetry.controlRings+=2;});
       deckButtons.forEach(r=>{this.add.circle(r.x,r.y,Math.min(r.w,r.h)*.50,0xffffff,0).setStrokeStyle(1,0xe7dae1,.18).setDepth(8);telemetry.controlRings++;});
-
-      // Static reel-window side falloff and lower-panel print-glow. No moving glass sweep.
       this.add.rectangle(reel.x-reel.w*.42,reel.y,8,reel.h*.72,0x000000,.20).setDepth(6);
       this.add.rectangle(reel.x+reel.w*.42,reel.y,8,reel.h*.72,0x000000,.20).setDepth(6);
       this.add.ellipse(lower.x,lower.y,lower.w*.50,lower.h*.44,0xff4fae,.018).setDepth(5).setBlendMode(ADD);
       telemetry.materialPlanes+=3;
-
       telemetry.enabled=true;telemetry.separatePhaserStage=true;
       log('CABINET_STAGE','PHASER_COMPOSITOR_READY');log('CABINET_STAGE_MESH',`RAILS:${telemetry.meshRails}`);log('CABINET_STAGE_LENS',`LAYERS:${telemetry.lampOptics}`);
      }catch(e){telemetry.errors.push(String(e?.message||e));log('CABINET_STAGE_ERROR',String(e?.message||e));}
